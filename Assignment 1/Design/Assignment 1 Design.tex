@@ -40,11 +40,39 @@ and must collect more by moving close enough in order to survive and continue pl
 cause the player to become unstable, and they will eventually dissipate once a certain point is reached, causing a game over as well.
 
 The goal of the game is to survive as long as possible, which will require the player to collect enough light to survive,
-while taking care to avoid obstacles and not collecting too much light.
+while taking care to avoid obstacles and not collecting too much light. Each playthrough, from the start of a game to the inevitable game over,
+will be referred to as a ``run''.
 
 In terms of level design, the game world will resemble a standard 2D platformer, except the player is constantly moving forwards (i.e. to the right),
 and the only way to travel vertically is by jumping. The tiles of the level, as well as the light being collected by the player,
 will be procedurally generated according to a collection of premade tilesets; this should allow for more variety while also keeping
 the level structured and less chaotic.
+
+\section{Mechanics}
+
+The core mechanic of the game is the management of the player's light. As mentioned above, this resource will constantly decrease at a slow rate,
+and when completely exhausted, the player will lose the game. However, having too much light at a given time will also result in a game over,
+meaning the player must carefully manage this resource. Rather than being displayed numerically, the amount of light the player has will be
+graphically reflected in the player character. For example, the default state of the character could emit a light with bloom, which dims
+or brightens based on how much light the player currently has.
+
+As mentioned before, the only action available to the player is jumping. This will be done by pressing a key, which will most likely be the space bar.
+Tapping and releasing the key immediately should result in a small jump, while holding the key for longer should result in a higher jump, to a degree.
+Jumping may also consume light, with more powerful jumps requiring more. This adds another challenge for the player, in that they must manage their jumps
+and light collection properly in order to avoid a game over.
+
+The game should have two scenes: a main menu from which the player can start a new game or exit, and a play scene where the actual gameplay occurs.
+The play scene should consist of the player character and the level, which is made up of various tiles on which the player moves, and collectibles
+that grant the player light. The level consists of various tilesets that are randomly picked from a collection of premade templates. Gameplay should
+theoretically be able to last indefinitely, so when the player nears the end of their current tileset, a new one is placed ahead of the player,
+and any tilesets that are no longer visible should be removed from the level.
+
+During gameplay, a stopwatch should also be displayed on the screen which tracks how long the current run has gone on for.
+The final length of the run should be displayed to the player when the run ends.
+
+\section{Aesthetics}
+
+The visual theme of the game should be futuristic, resembling scenes that one might find in science fiction.
+Proper lighting, as well as the use of post-processing effects like bloom, will be integral to producing this theme.
 
 \end{document}
