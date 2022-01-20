@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[margin=0.9in]{geometry}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\definecolor{linkcolour}{RGB}{0, 149, 255}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolour
+}
+
+\begin{document}
+
+\title{\textit{Lightrunner}}
+\author{Luna Y.}
+\date{
+    SFWRENG 3GB3 -- Assignment 1\\[0.25cm]
+    \today
+}
+\maketitle
+
+\tableofcontents
+
+\section{Basic Information}
+
+In this game, the player will play as an amorphous entity composed of light. The player character is constantly travelling forwards,
+and the only action available to the player is jumping. The player character is constantly shrinking due to expending their light,
+and must collect more by moving close enough in order to survive and continue playing. However, collecting too much light will
+cause the player to become unstable, and they will eventually dissipate once a certain point is reached, causing a game over as well.
+
+The goal of the game is to survive as long as possible, which will require the player to collect enough light to survive,
+while taking care to avoid obstacles and not collecting too much light.
+
+In terms of level design, the game world will resemble a standard 2D platformer, except the player is constantly moving forwards (i.e. to the right),
+and the only way to travel vertically is by jumping. The tiles of the level, as well as the light being collected by the player,
+will be procedurally generated according to a collection of premade tilesets; this should allow for more variety while also keeping
+the level structured and less chaotic.
+
+\end{document}
