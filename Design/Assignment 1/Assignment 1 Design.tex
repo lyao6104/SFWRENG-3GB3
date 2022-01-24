@@ -41,14 +41,18 @@ cause the player to become unstable, and they will eventually dissipate once a c
 
 The goal of the game is to survive as long as possible, which will require the player to collect enough light to survive,
 while taking care to avoid obstacles and not collecting too much light. Each playthrough, from the start of a game to the inevitable game over,
-will be referred to as a ``run''.
+will be referred to as a ``run''. The game concept takes inspiration from the ``endless runner'' genre of games,
+which includes titles such as \textit{Geometry Dash, Temple Run, Jetpack Joyride}, and so on. As such, there is no explicit win condition,
+but there will be two loss conditions; the player loses when they either fail to avoid an obstacle, or when they run out of light.
 
 In terms of level design, the game world will resemble a standard 2D platformer, except the player is constantly moving forwards (i.e. to the right),
 and the only way to travel vertically is by jumping. The tiles of the level, as well as the light being collected by the player,
 will be procedurally generated according to a collection of premade tilesets; this should allow for more variety while also keeping
 the level structured and less chaotic.
 
-\section{Mechanics}
+\pagebreak
+
+\section{Gameplay}
 
 The core mechanic of the game is the management of the player's light. As mentioned above, this resource will constantly decrease at a slow rate,
 and when completely exhausted, the player will lose the game. However, having too much light at a given time will also result in a game over,
@@ -67,12 +71,30 @@ that grant the player light. The level consists of various tilesets that are ran
 theoretically be able to last indefinitely, so when the player nears the end of their current tileset, a new one is placed ahead of the player,
 and any tilesets that are no longer visible should be removed from the level.
 
+To avoid overwhelming the player, the difficulty of the game should gradually increase, based on how long the current run has lasted.
+As an example, the first few tilesets may be quite simple, with mostly unbroken platforms and some obstacles, while later tilesets
+might have considerably more obstacles or difficult jumps. The difficulty should be balanced around each run lasting about five minutes, on average.
+Simple instructions will be displayed as part of the level at the start of each run, rather than having an explicit instruction popup.
+This makes it so that the player does not learn the basics of the game through trial and error, but optimal strategies (if any exist)
+are left for the player to discover themselves.
+
 During gameplay, a stopwatch should also be displayed on the screen which tracks how long the current run has gone on for.
-The final length of the run should be displayed to the player when the run ends.
+The final length of the run should be shown to the player when the run ends. This introduces a meta-goal where
+players might be challenged to survive the longest.
 
 \section{Aesthetics}
 
 The visual theme of the game should be futuristic, resembling scenes that one might find in science fiction.
 Proper lighting, as well as the use of post-processing effects like bloom, will be integral to producing this theme.
+
+The graphics of the game will be predominantly created using 2D sprites. Certain visual effects, such as the indicator
+for the player having too much light, may also use particle systems. Given the visual theme of the game, it is likely
+that complex sprite animations will be unnecessary, and simple animations can be done using particle systems instead.
+
+There will likely be some looping royalty-free background music added to the game, as well as a sound effect for jumping.
+These audio elements should also match the futuristic visual theme of the game.
+
+Story is not a major part of the game, so there will only be a small amount of lore included with the instructions,
+which will serve as an introduction to the game.
 
 \end{document}
