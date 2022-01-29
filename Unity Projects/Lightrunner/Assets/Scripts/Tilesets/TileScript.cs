@@ -22,8 +22,8 @@ public class TileScript : MonoBehaviour
 			//Debug.Log(Mathf.Rad2Deg * collisionAngle);
 
 			// Refresh the player's jump if they've landed on top of a tile
-			// (i.e. collision angle is less than -45 degrees).
-			if (collisionAngle <= -45)
+			// (i.e. collision angle is less than -60 degrees).
+			if (collisionAngle <= -60)
 			{
 				PlayerScript potentialPlayer = collision.gameObject.GetComponent<PlayerScript>();
 				if (potentialPlayer != null)
@@ -32,5 +32,24 @@ public class TileScript : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	/// <summary>
+	/// Set the material of this tile.
+	/// </summary>
+	/// <param name="mat">Material to be assigned.</param>
+	public void SetMaterial(Material mat)
+	{
+		// Get sprite renderer and set material.
+		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+		spriteRenderer.sharedMaterial = mat;
+
+		// Change the base colour of the sprite to a desaturated version of the material's emissive colour.
+		Color colour = mat.GetColor("_Colour");
+		float h;
+		Color.RGBToHSV(colour, out h, out _, out _);
+		colour = Color.HSVToRGB(h, 0.5f, 1);
+		spriteRenderer.color = colour;
+		Debug.Log(string.Format("Colour set to {0}", colour));
 	}
 }

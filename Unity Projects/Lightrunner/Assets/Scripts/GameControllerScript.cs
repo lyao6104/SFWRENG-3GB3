@@ -9,10 +9,10 @@ public class GameControllerScript : MonoBehaviour
 	public float baseHeight = 0, minHeight = -2, maxHeight = 2, tileHeight = 1;
 	public int minGap = 1, maxGap = 3, spawnX = 10;
 	public float initialSpeed, maxSpeed, secondsToMaxSpeed = 180;
+	public float speed, acceleration;
 
 	private float startTime = 0;
 	private float lastHeight = 0;
-	public float speed, acceleration;
 
 	private void Start()
 	{

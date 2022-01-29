@@ -17,6 +17,12 @@ public class PlayerScript : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		moveAction.Enable();
+
+		// Randomize colour at game start.
+		Color colour = Color.HSVToRGB(Random.value, 1, 1) * 4;
+		Material mat = GetComponent<SpriteRenderer>().material;
+		mat.SetColor("_Colour", colour);
+		GetComponent<SpriteRenderer>().sharedMaterial = mat;
 	}
 
 	private void FixedUpdate()
