@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TilesetScript : MonoBehaviour
 {
+	public float length, minSpeedToSpawn;
 	// Speed is in units per second.
 	public float speed = 2;
 	private float startTime, maxSpeed, acceleration;

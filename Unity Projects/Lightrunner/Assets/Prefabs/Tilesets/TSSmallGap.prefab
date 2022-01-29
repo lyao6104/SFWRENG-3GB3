@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 737958854340970945}
   m_Layer: 0
   m_Name: TSSmallGap
-  m_TagString: Untagged
+  m_TagString: Tileset
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1620c2ef6c48ea240b10ff9238361f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  length: 26
+  minSpeedToSpawn: 0
   speed: 2
 --- !u!1 &737958854362520600
 GameObject:
@@ -148,7 +150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2171051656917749406, guid: 71b95b14df0a98b4faf415f2d67d9d4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.5
+      value: 16.5
       objectReference: {fileID: 0}
     - target: {fileID: 2171051656917749406, guid: 71b95b14df0a98b4faf415f2d67d9d4c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -226,7 +228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2171051656917749406, guid: 71b95b14df0a98b4faf415f2d67d9d4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.5
+      value: 23.5
       objectReference: {fileID: 0}
     - target: {fileID: 2171051656917749406, guid: 71b95b14df0a98b4faf415f2d67d9d4c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -382,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2171051656917749406, guid: 71b95b14df0a98b4faf415f2d67d9d4c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.5
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 2171051656917749406, guid: 71b95b14df0a98b4faf415f2d67d9d4c, type: 3}
       propertyPath: m_LocalPosition.y

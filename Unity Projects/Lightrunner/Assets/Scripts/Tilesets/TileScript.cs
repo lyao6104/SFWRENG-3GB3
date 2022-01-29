@@ -5,10 +5,12 @@ using UnityEngine;
 public class TileScript : MonoBehaviour
 {
 	private BoxCollider2D bc;
+	private GameControllerScript gc;
 
 	private void Start()
 	{
 		bc = GetComponent<BoxCollider2D>();
+		gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerScript>();
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -17,13 +19,23 @@ public class TileScript : MonoBehaviour
 		bc.GetContacts(contacts);
 		foreach (ContactPoint2D contact in contacts)
 		{
+			// Skip if the contact is (0, 0)
+			if (contact.normal == Vector2.zero)
+			{
+				continue;
+			}
+
 			//Debug.Log(contact.normal);
 			float collisionAngle = Mathf.Atan2(contact.normal.y, contact.normal.x) * Mathf.Rad2Deg;
 			//Debug.Log(Mathf.Rad2Deg * collisionAngle);
 
-			// Refresh the player's jump if they've landed on top of a tile
-			// (i.e. collision angle is less than -60 degrees).
-			if (collisionAngle <= -60)
+			// If the collision is between -10 and 10 degrees, that's a game over.
+			if (-10 <= collisionAngle && collisionAngle <= 10)
+			{
+				gc.GameOver();
+			}
+			// Otherwise, refresh the player's jump
+			else
 			{
 				PlayerScript potentialPlayer = collision.gameObject.GetComponent<PlayerScript>();
 				if (potentialPlayer != null)

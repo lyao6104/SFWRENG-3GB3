@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tile
-  m_Shader: {fileID: -6465566751694194690, guid: ff4171ffa37b48b48abf47aaf23ee941, type: 3}
+  m_Name: MenuButton
+  m_Shader: {fileID: -6465566751694194690, guid: 11c3f1c068a084c47a3c7abed3460494, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Emissive:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 13885f70153a2704a8e422b03aaa314c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -41,6 +41,5 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats: []
     m_Colors:
-    - Color_8cb02544a338428ba2a4abd4e6792d46: {r: 0, g: 17.108719, b: 108.92551, a: 0}
-    - _Colour: {r: 0, g: 0.972549, b: 5.992157, a: 0}
+    - _Colour: {r: 0, g: 1.882353, b: 8, a: 0}
   m_BuildTextureStacks: []
