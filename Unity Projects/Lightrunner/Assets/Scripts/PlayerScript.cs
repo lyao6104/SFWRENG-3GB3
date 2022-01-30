@@ -3,26 +3,71 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class PlayerScript : MonoBehaviour
 {
 	public float speed, jumpForce, longJumpMultiplier;
+	public float lightDecayRate = 0.05f, minLight = 0, maxLight = 1.5f, initialLight = 1, psLightThreshold = 1.25f;
 	public InputAction moveAction;
 
+	private GameControllerScript gc;
 	private Rigidbody2D rb;
+	private Light2D lightComponent;
+	private ParticleSystem ps;
+	private SpriteRenderer sr;
+
 	private Vector2 movement;
 	private bool jumpReady = true;
+	private float curLight;
+
+	private Color baseColour;
+	private float baseColourIntensity = 4, minColourIntensity = 1, maxColourIntensity = 5;
 
 	private void Start()
 	{
+		gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerScript>();
 		rb = GetComponent<Rigidbody2D>();
+		sr = GetComponent<SpriteRenderer>();
 		moveAction.Enable();
 
 		// Randomize colour at game start.
-		Color colour = Color.HSVToRGB(Random.value, 1, 1) * 4;
-		Material mat = GetComponent<SpriteRenderer>().material;
-		mat.SetColor("_Colour", colour);
-		GetComponent<SpriteRenderer>().sharedMaterial = mat;
+		baseColour = Color.HSVToRGB(Random.value, 1, 1);
+		Material mat = sr.material;
+		mat.SetColor("_Colour", baseColour * GetColourIntensity(initialLight));
+		sr.sharedMaterial = mat;
+
+		// Light
+		curLight = initialLight;
+		ps = GetComponent<ParticleSystem>();
+		lightComponent = GetComponent<Light2D>();
+		ps.GetComponent<Renderer>().sharedMaterial = mat;
+		ps.Stop();
+	}
+
+	private void Update()
+	{
+		curLight -= lightDecayRate * Time.deltaTime;
+
+		// Update visuals to match curLight
+		lightComponent.intensity = curLight;
+		sr.sharedMaterial.SetColor("_Colour", baseColour * GetColourIntensity(curLight));
+
+		// Enable/disable particles depending on curLight
+		if (curLight >= psLightThreshold && ps.isStopped)
+		{
+			ps.Play();
+		}
+		else if (curLight < psLightThreshold && ps.isPlaying)
+		{
+			ps.Stop();
+		}
+
+		// Light-related game overs
+		if (curLight <= minLight || curLight >= maxLight)
+		{
+			gc.GameOver();
+		}
 	}
 
 	private void FixedUpdate()
@@ -65,5 +110,19 @@ public class PlayerScript : MonoBehaviour
 
 			jumpReady = false;
 		}
+	}
+
+	/// <summary>
+	/// Adds the given amount to the player's current light store.
+	/// </summary>
+	/// <param name="amount">How much light was collected.</param>
+	public void CollectLight(float amount)
+	{
+		curLight += amount;
+	}
+
+	private float GetColourIntensity(float lightValue)
+	{
+		return Mathf.Clamp(baseColourIntensity * lightValue, minColourIntensity, maxColourIntensity);
 	}
 }

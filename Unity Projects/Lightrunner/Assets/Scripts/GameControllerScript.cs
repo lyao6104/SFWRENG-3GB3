@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class GameControllerScript : MonoBehaviour
 {
-	public GameObject initialTileset;
+	public List<GameObject> initialTilesets;
 	public List<GameObject> tilesets;
 	public float baseHeight = 0, minHeight = -2, maxHeight = 2, tileHeight = 1;
 	public int minGap = 1, maxGap = 3;
-	public float spawnX = 11.5f;
+	public float spawnX = 11.5f, startingSpawnX = -8;
 	public float initialSpeed, maxSpeed, secondsToMaxSpeed = 180;
 	public float speed, acceleration;
 	public GameObject playerPrefab;
@@ -16,7 +16,7 @@ public class GameControllerScript : MonoBehaviour
 	public bool initialized;
 	public Canvas mainMenu;
 
-	private float startTime = 0;
+	private int initTilesetCursor = 0;
 	private float lastHeight = 0;
 
 	private void Start()
@@ -42,10 +42,12 @@ public class GameControllerScript : MonoBehaviour
 		// Setup tiles
 		speed = initialSpeed;
 		acceleration = (maxSpeed - initialSpeed) / secondsToMaxSpeed;
-		GameObject newTile = Instantiate(initialTileset, new Vector3(-8, 0, 0), Quaternion.identity);
-		TilesetScript tilesetScript = newTile.GetComponent<TilesetScript>();
-		tilesetScript.Initialize(speed, maxSpeed, Time.time, acceleration);
-		spawnX = tilesetScript.length / 2 + 1;
+		//GameObject newTile = Instantiate(initialTilesets[0], new Vector3(-8, 0, 0), Quaternion.identity);
+		//TilesetScript tilesetScript = newTile.GetComponent<TilesetScript>();
+		//tilesetScript.Initialize(speed, maxSpeed, Time.time, acceleration);
+		//spawnX = tilesetScript.length / 2 + 1;
+		//initialTilesets.RemoveAt(0);
+		SpawnTileset();
 
 		// Setup player
 		Instantiate(playerPrefab, startPos, Quaternion.identity);
@@ -81,6 +83,9 @@ public class GameControllerScript : MonoBehaviour
 		}
 
 		speed = initialSpeed;
+		initTilesetCursor = 0;
+		spawnX = startingSpawnX;
+		lastHeight = 0;
 		mainMenu.enabled = true;
 	}
 
@@ -90,12 +95,22 @@ public class GameControllerScript : MonoBehaviour
 	public void SpawnTileset()
 	{
 		int i;
+		GameObject setPrefab;
 		TilesetScript tilesetScript;
-		do
+		if (initTilesetCursor >= initialTilesets.Count)
 		{
-			i = Random.Range(0, tilesets.Count);
-			tilesetScript = tilesets[i].GetComponent<TilesetScript>();
-		} while (speed < tilesetScript.minSpeedToSpawn);
+			do
+			{
+				i = Random.Range(0, tilesets.Count);
+				tilesetScript = tilesets[i].GetComponent<TilesetScript>();
+			} while (speed < tilesetScript.minSpeedToSpawn);
+			setPrefab = tilesets[i];
+		}
+		else
+		{
+			setPrefab = initialTilesets[initTilesetCursor];
+			initTilesetCursor++;
+		}
 		
 		int gap = Random.Range(minGap, maxGap + 1);
 
@@ -105,7 +120,7 @@ public class GameControllerScript : MonoBehaviour
 		float height = Mathf.Clamp(lastHeight + dHeight, minHeight, maxHeight);
 		lastHeight = height;
 
-		GameObject newTile = Instantiate(tilesets[i], new Vector3(spawnX + gap, height, 0), Quaternion.identity);
+		GameObject newTile = Instantiate(setPrefab, new Vector3(spawnX + gap, height, 0), Quaternion.identity);
 		tilesetScript = newTile.GetComponent<TilesetScript>();
 		tilesetScript.Initialize(speed, maxSpeed, Time.time, acceleration);
 		spawnX = tilesetScript.length / 2 + 1;
