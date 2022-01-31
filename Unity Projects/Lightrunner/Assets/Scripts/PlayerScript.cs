@@ -36,13 +36,13 @@ public class PlayerScript : MonoBehaviour
 		baseColour = Color.HSVToRGB(Random.value, 1, 1);
 		Material mat = sr.material;
 		mat.SetColor("_Colour", baseColour * GetColourIntensity(initialLight));
-		sr.sharedMaterial = mat;
+		sr.material = mat;
 
 		// Light
 		curLight = initialLight;
 		ps = GetComponent<ParticleSystem>();
 		lightComponent = GetComponent<Light2D>();
-		ps.GetComponent<Renderer>().sharedMaterial = mat;
+		ps.GetComponent<Renderer>().material = mat;
 		ps.Stop();
 	}
 
@@ -52,7 +52,7 @@ public class PlayerScript : MonoBehaviour
 
 		// Update visuals to match curLight
 		lightComponent.intensity = curLight;
-		sr.sharedMaterial.SetColor("_Colour", baseColour * GetColourIntensity(curLight));
+		sr.material.SetColor("_Colour", baseColour * GetColourIntensity(curLight));
 
 		// Enable/disable particles depending on curLight
 		if (curLight >= psLightThreshold && ps.isStopped)

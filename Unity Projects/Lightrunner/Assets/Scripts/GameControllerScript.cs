@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[System.Serializable]
+public class MusicSettings
+{
+	public AudioClip menuMusic;
+	public List<AudioClip> playlist;
+}
+
 public class GameControllerScript : MonoBehaviour
 {
 	public List<GameObject> initialTilesets;
@@ -21,17 +28,26 @@ public class GameControllerScript : MonoBehaviour
 	public GameObject bgStarfield, bgCityscape;
 	public float bgSpeedMult = 0.05f, bgCitySpeedMult = 0.75f;
 
+	public MusicSettings musicSettings;
+
+	private AudioSource audioSource;
 	private SpriteRenderer srStarfield, srCityscape;
 
 	private float startTime = 0;
 	private int initTilesetCursor = 0;
 	private float lastHeight = 0;
 	private bool alreadyGameOver = false;
+	private float maxVolume = 1;
 
 	private void Start()
 	{
 		srStarfield = bgStarfield.GetComponent<SpriteRenderer>();
 		srCityscape = bgCityscape.GetComponent<SpriteRenderer>();
+
+		audioSource = GetComponent<AudioSource>();
+		audioSource.clip = musicSettings.menuMusic;
+		audioSource.Play();
+		maxVolume = audioSource.volume; // Avoids requiring another public field in the script.
 	}
 
 	private void FixedUpdate()
@@ -43,10 +59,15 @@ public class GameControllerScript : MonoBehaviour
 				speed = Mathf.Clamp(speed + acceleration * Time.deltaTime, 0, maxSpeed);
 
 				srStarfield.material.SetFloat("_ScrollSpeed", speed * bgSpeedMult);
-				srCityscape.material.SetFloat("_ScrollSpeed", speed * bgSpeedMult * bgCitySpeedMult);
+				srCityscape.material.SetFloat("_ScrollSpeed", speed * bgCitySpeedMult);
 			}
 
 			timerLabel.text = string.Format("Time Survived: {0:F2}s", Time.time - startTime);
+
+			if (!audioSource.isPlaying)
+			{
+				PlayNextTrack();
+			}
 		}
 	}
 
@@ -58,20 +79,19 @@ public class GameControllerScript : MonoBehaviour
 		// Setup tiles
 		speed = initialSpeed;
 		acceleration = (maxSpeed - initialSpeed) / secondsToMaxSpeed;
-		//GameObject newTile = Instantiate(initialTilesets[0], new Vector3(-8, 0, 0), Quaternion.identity);
-		//TilesetScript tilesetScript = newTile.GetComponent<TilesetScript>();
-		//tilesetScript.Initialize(speed, maxSpeed, Time.time, acceleration);
-		//spawnX = tilesetScript.length / 2 + 1;
-		//initialTilesets.RemoveAt(0);
 		SpawnTileset();
 
 		// Setup player
 		Instantiate(playerPrefab, startPos, Quaternion.identity);
 
+
 		startTime = Time.time;
+		srStarfield.material.SetFloat("_StartTime", startTime);
+		srCityscape.material.SetFloat("_StartTime", startTime);
 		mainMenu.enabled = false;
 		gameUI.enabled = true;
 		initialized = true;
+		PlayNextTrack();
 	}
 
 	/// <summary>
@@ -130,6 +150,8 @@ public class GameControllerScript : MonoBehaviour
 		spawnX = startingSpawnX;
 		lastHeight = 0;
 		mainMenu.enabled = true;
+
+		StartCoroutine(FadeToTrack(musicSettings.menuMusic, 3));
 	}
 
 	/// <summary>
@@ -170,5 +192,40 @@ public class GameControllerScript : MonoBehaviour
 		tilesetScript.Initialize(speed, maxSpeed, Time.time, acceleration);
 		spawnX = tilesetScript.length / 2 + 1;
 		Debug.Log(string.Format("Spawned new tileset with gap of {0} and height of {1}.", gap, height));
+	}
+
+	private void PlayNextTrack()
+	{
+		int i = 0;
+		do
+		{
+			i = Random.Range(0, musicSettings.playlist.Count);
+		} while (musicSettings.playlist[i] == audioSource.clip);
+
+		StartCoroutine(FadeToTrack(musicSettings.playlist[i], 3));
+	}
+
+	private IEnumerator FadeToTrack(AudioClip nextTrack, float duration)
+	{
+		float t = 1;
+		
+		// Fade out and stop.
+		while (t > 0)
+		{
+			audioSource.volume = Mathf.Clamp01(Mathf.Lerp(0, maxVolume, t));
+			t -= Time.deltaTime / duration;
+			yield return new WaitForEndOfFrame();
+		}
+		audioSource.Stop();
+
+		// Swap to next track and fade in.
+		audioSource.clip = nextTrack;
+		audioSource.Play();
+		while (t < 1)
+		{
+			audioSource.volume = Mathf.Clamp01(Mathf.Lerp(0, maxVolume, t));
+			t += Time.deltaTime / duration;
+			yield return new WaitForEndOfFrame();
+		}
 	}
 }

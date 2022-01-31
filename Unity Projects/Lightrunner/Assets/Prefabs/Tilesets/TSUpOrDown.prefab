@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   length: 24
-  minSpeedToSpawn: 4
+  minSpeedToSpawn: 5
   speed: 2
 --- !u!1 &737958854362520600
 GameObject:

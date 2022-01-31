@@ -54,7 +54,7 @@ public class TileScript : MonoBehaviour
 	{
 		// Get sprite renderer and set material.
 		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-		spriteRenderer.sharedMaterial = mat;
+		spriteRenderer.material = mat;
 
 		// Change the base colour of the sprite to a desaturated version of the material's emissive colour.
 		Color colour = mat.GetColor("_Colour");

@@ -65,11 +65,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Jump using Space, Tapping, or A/X on your controller.
+  m_text: 'Jump using Space, A/X on your controller, or by Tapping.
 
 
-    Holding down
-    the button will make you jump higher.'
+    Holding
+    down the button will make you jump higher.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 51f1383141f2643418878aa9ec7af744, type: 2}
   m_sharedMaterial: {fileID: -4093003894953067605, guid: 51f1383141f2643418878aa9ec7af744, type: 2}

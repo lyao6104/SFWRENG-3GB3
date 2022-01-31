@@ -12,7 +12,7 @@ public class CollectibleLightScript : MonoBehaviour
 		Color baseColour = Color.HSVToRGB(Random.value, 1, 1);
 		Material mat = GetComponent<SpriteRenderer>().material;
 		mat.SetColor("_Colour", baseColour * bloomIntensity);
-		GetComponent<SpriteRenderer>().sharedMaterial = mat;
+		GetComponent<SpriteRenderer>().material = mat;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
