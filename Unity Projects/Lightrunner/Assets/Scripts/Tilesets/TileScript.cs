@@ -32,7 +32,7 @@ public class TileScript : MonoBehaviour
 			// If the collision is between -10 and 10 degrees, that's a game over.
 			if (-10 <= collisionAngle && collisionAngle <= 10)
 			{
-				gc.GameOver();
+				gc.GameOver("you ran into an obstacle.");
 			}
 			// Otherwise, refresh the player's jump
 			else
@@ -62,6 +62,6 @@ public class TileScript : MonoBehaviour
 		Color.RGBToHSV(colour, out h, out _, out _);
 		colour = Color.HSVToRGB(h, 0.5f, 1);
 		spriteRenderer.color = colour;
-		Debug.Log(string.Format("Colour set to {0}", colour));
+		//Debug.Log(string.Format("Colour set to {0}", colour));
 	}
 }

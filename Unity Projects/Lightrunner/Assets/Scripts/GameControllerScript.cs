@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameControllerScript : MonoBehaviour
 {
@@ -14,13 +15,23 @@ public class GameControllerScript : MonoBehaviour
 	public GameObject playerPrefab;
 	public Vector3 startPos;
 	public bool initialized;
-	public Canvas mainMenu;
+	public Canvas mainMenu, gameUI, gameOverUI;
+	public TMP_Text timerLabel, gameOverReasonLabel;
 
+	public GameObject bgStarfield, bgCityscape;
+	public float bgSpeedMult = 0.05f, bgCitySpeedMult = 0.75f;
+
+	private SpriteRenderer srStarfield, srCityscape;
+
+	private float startTime = 0;
 	private int initTilesetCursor = 0;
 	private float lastHeight = 0;
+	private bool alreadyGameOver = false;
 
 	private void Start()
 	{
+		srStarfield = bgStarfield.GetComponent<SpriteRenderer>();
+		srCityscape = bgCityscape.GetComponent<SpriteRenderer>();
 	}
 
 	private void FixedUpdate()
@@ -30,7 +41,12 @@ public class GameControllerScript : MonoBehaviour
 			if (speed < maxSpeed)
 			{
 				speed = Mathf.Clamp(speed + acceleration * Time.deltaTime, 0, maxSpeed);
+
+				srStarfield.material.SetFloat("_ScrollSpeed", speed * bgSpeedMult);
+				srCityscape.material.SetFloat("_ScrollSpeed", speed * bgSpeedMult * bgCitySpeedMult);
 			}
+
+			timerLabel.text = string.Format("Time Survived: {0:F2}s", Time.time - startTime);
 		}
 	}
 
@@ -52,7 +68,9 @@ public class GameControllerScript : MonoBehaviour
 		// Setup player
 		Instantiate(playerPrefab, startPos, Quaternion.identity);
 
+		startTime = Time.time;
 		mainMenu.enabled = false;
+		gameUI.enabled = true;
 		initialized = true;
 	}
 
@@ -67,21 +85,46 @@ public class GameControllerScript : MonoBehaviour
 	/// <summary>
 	/// Code runs when player dies or returns to the main menu.
 	/// </summary>
-	public void GameOver()
+	public void GameOver(string reason)
 	{
-		// TODO this should load up a menu where your stats are shown before returning to the main menu.
+		if (alreadyGameOver)
+		{
+			return;
+		}
+		else
+		{
+			alreadyGameOver = true;
+		}
+
+		gameUI.enabled = false;
+		gameOverUI.enabled = true;
+		gameOverReasonLabel.text = string.Format("You survived for {0:F2} seconds, but {1}", Time.time - startTime, reason);
+	}
+
+	/// <summary>
+	/// Should be called after GameOver when the player returns to the main menu.
+	/// </summary>
+	public void ToMainMenu()
+	{
+		gameOverUI.enabled = false;
 
 		initialized = false;
+		alreadyGameOver = false;
 
+		// Delete player and any active tiles
 		GameObject[] activeTilesets = GameObject.FindGameObjectsWithTag("Tileset");
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
-
 		Destroy(player);
-		for(int i = 0; i < activeTilesets.Length; i++)
+		for (int i = 0; i < activeTilesets.Length; i++)
 		{
 			Destroy(activeTilesets[i]);
 		}
 
+		// Reset background
+		srStarfield.material.SetFloat("_ScrollSpeed", 0);
+		srCityscape.material.SetFloat("_ScrollSpeed", 0);
+
+		// Reset some values
 		speed = initialSpeed;
 		initTilesetCursor = 0;
 		spawnX = startingSpawnX;
@@ -97,6 +140,8 @@ public class GameControllerScript : MonoBehaviour
 		int i;
 		GameObject setPrefab;
 		TilesetScript tilesetScript;
+		int gap = 0;
+		float height = 0;
 		if (initTilesetCursor >= initialTilesets.Count)
 		{
 			do
@@ -105,19 +150,19 @@ public class GameControllerScript : MonoBehaviour
 				tilesetScript = tilesets[i].GetComponent<TilesetScript>();
 			} while (speed < tilesetScript.minSpeedToSpawn);
 			setPrefab = tilesets[i];
+
+			// Determine the gap and height of the new tileset
+			gap = Random.Range(minGap, maxGap + 1);
+
+			int heightSign = Random.Range(-1, 2);
+			float dHeight = heightSign * tileHeight;
+			height = Mathf.Clamp(lastHeight + dHeight, minHeight, maxHeight);
 		}
 		else
 		{
 			setPrefab = initialTilesets[initTilesetCursor];
 			initTilesetCursor++;
 		}
-		
-		int gap = Random.Range(minGap, maxGap + 1);
-
-		// Determine the height of the new tileset
-		int heightSign = Random.Range(-1, 2);
-		float dHeight = heightSign * tileHeight;
-		float height = Mathf.Clamp(lastHeight + dHeight, minHeight, maxHeight);
 		lastHeight = height;
 
 		GameObject newTile = Instantiate(setPrefab, new Vector3(spawnX + gap, height, 0), Quaternion.identity);

@@ -21,7 +21,7 @@ public class TilesetScript : MonoBehaviour
 		this.acceleration = acceleration;
 
 		// Randomize colour of tiles at game start.
-		Color colour = Color.HSVToRGB(Random.value, 1, 1) * 4;
+		Color colour = Color.HSVToRGB(Random.value, 1, 1) * 5;
 		Material mat = GetComponentInChildren<SpriteRenderer>().material;
 		mat.SetColor("_Colour", colour);
 		TileScript[] tiles = GetComponentsInChildren<TileScript>();

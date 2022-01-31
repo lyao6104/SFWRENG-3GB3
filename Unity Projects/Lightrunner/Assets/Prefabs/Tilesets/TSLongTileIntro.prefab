@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1620c2ef6c48ea240b10ff9238361f5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  length: 20
+  length: 25
   minSpeedToSpawn: 0
   speed: 2
 --- !u!1 &5846849167713145153
@@ -315,7 +315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6018513696468485974}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9, y: 0, z: 0}
+  m_LocalPosition: {x: 6.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6701976070297518529}

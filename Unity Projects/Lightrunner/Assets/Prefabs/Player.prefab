@@ -143,9 +143,10 @@ MonoBehaviour:
   longJumpMultiplier: 0.5
   lightDecayRate: 0.025
   minLight: 0
-  maxLight: 1.5
+  maxLight: 2
   initialLight: 1
-  psLightThreshold: 1.25
+  psLightThreshold: 1.5
+  jumpCost: 0.025
   moveAction:
     m_Name: Move
     m_Type: 0

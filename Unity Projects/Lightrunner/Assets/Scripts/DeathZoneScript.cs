@@ -17,7 +17,7 @@ public class DeathZoneScript : MonoBehaviour
 
 		if (collision.tag == "Player")
 		{
-			gc.GameOver();
+			gc.GameOver("you fell off the platform.");
 		}
 	}
 }

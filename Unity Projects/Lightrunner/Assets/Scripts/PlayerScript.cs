@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour
 {
 	public float speed, jumpForce, longJumpMultiplier;
 	public float lightDecayRate = 0.05f, minLight = 0, maxLight = 1.5f, initialLight = 1, psLightThreshold = 1.25f;
+	public float jumpCost = 0.1f;
 	public InputAction moveAction;
 
 	private GameControllerScript gc;
@@ -64,9 +65,13 @@ public class PlayerScript : MonoBehaviour
 		}
 
 		// Light-related game overs
-		if (curLight <= minLight || curLight >= maxLight)
+		if (curLight <= minLight)
 		{
-			gc.GameOver();
+			gc.GameOver("your light has been extinguished...");
+		}
+		else if (curLight >= maxLight)
+		{
+			gc.GameOver("the light inside you became too much to bear...");
 		}
 	}
 
@@ -90,12 +95,18 @@ public class PlayerScript : MonoBehaviour
 	/// </summary>
 	public void Jump(InputAction.CallbackContext context)
 	{
+		if (!gc.initialized)
+		{
+			return;
+		}
+
 		if (context.started)
 		{
 			// Checks both jumpReady and vertical velocity to avoid some edge cases.
 			if (jumpReady && Mathf.Abs(rb.velocity.y) < 1e-5)
 			{
 				rb.AddForce(Vector2.up * jumpForce);
+				curLight -= jumpCost;
 			}
 
 			//Debug.Log(context.duration);
@@ -105,6 +116,7 @@ public class PlayerScript : MonoBehaviour
 			if (context.interaction is HoldInteraction && jumpReady)
 			{
 				rb.AddForce(Vector2.up * jumpForce * longJumpMultiplier);
+				curLight -= jumpCost * longJumpMultiplier;
 				Debug.Log("Player performed extended jump.");
 			}
 
