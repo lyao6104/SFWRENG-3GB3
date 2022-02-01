@@ -10,7 +10,6 @@ public class PlayerScript : MonoBehaviour
 	public float speed, jumpForce, longJumpMultiplier;
 	public float lightDecayRate = 0.05f, minLight = 0, maxLight = 1.5f, initialLight = 1, psLightThreshold = 1.25f;
 	public float jumpCost = 0.1f;
-	public InputAction moveAction;
 
 	private GameControllerScript gc;
 	private Rigidbody2D rb;
@@ -18,19 +17,19 @@ public class PlayerScript : MonoBehaviour
 	private ParticleSystem ps;
 	private SpriteRenderer sr;
 
-	private Vector2 movement;
 	private bool jumpReady = true;
 	private float curLight;
 
 	private Color baseColour;
 	private float baseColourIntensity = 4, minColourIntensity = 1, maxColourIntensity = 5;
 
+	private Coroutine crMenuReturn;
+
 	private void Start()
 	{
 		gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerScript>();
 		rb = GetComponent<Rigidbody2D>();
 		sr = GetComponent<SpriteRenderer>();
-		moveAction.Enable();
 
 		// Randomize colour at game start.
 		baseColour = Color.HSVToRGB(Random.value, 1, 1);
@@ -65,20 +64,17 @@ public class PlayerScript : MonoBehaviour
 		}
 
 		// Light-related game overs
-		if (curLight <= minLight)
+		if (gc.PlayerCanAct())
 		{
-			gc.GameOver("your light has been extinguished...");
+			if (curLight <= minLight)
+			{
+				gc.GameOver("your light has been extinguished...");
+			}
+			else if (curLight >= maxLight)
+			{
+				gc.GameOver("the light inside you became too much to bear...");
+			}
 		}
-		else if (curLight >= maxLight)
-		{
-			gc.GameOver("the light inside you became too much to bear...");
-		}
-	}
-
-	private void FixedUpdate()
-	{
-		movement = moveAction.ReadValue<Vector2>();
-		rb.AddForce(speed * movement);
 	}
 
 	/// <summary>
@@ -95,7 +91,7 @@ public class PlayerScript : MonoBehaviour
 	/// </summary>
 	public void Jump(InputAction.CallbackContext context)
 	{
-		if (!gc.initialized)
+		if (!gc.PlayerCanAct())
 		{
 			return;
 		}
@@ -124,6 +120,35 @@ public class PlayerScript : MonoBehaviour
 		}
 	}
 
+	public void ReturnToMenu(InputAction.CallbackContext context)
+	{
+		if (!gc.PlayerCanAct())
+		{
+			return;
+		}
+
+		IInputInteraction interaction = context.interaction;
+		HoldInteraction hold;
+		if (interaction is HoldInteraction)
+		{
+			hold = (HoldInteraction)interaction;
+		}
+		else
+		{
+			return;
+		}
+
+		if (context.canceled)
+		{
+			StopCoroutine(crMenuReturn);
+			gc.ResetMenuLabel();
+		}
+		else if (context.started)
+		{
+			crMenuReturn = StartCoroutine(gc.FadeInMenuLabel(hold.duration));
+		}
+	}
+
 	/// <summary>
 	/// Adds the given amount to the player's current light store.
 	/// </summary>
@@ -137,4 +162,6 @@ public class PlayerScript : MonoBehaviour
 	{
 		return Mathf.Clamp(baseColourIntensity * lightValue, minColourIntensity, maxColourIntensity);
 	}
+
+	
 }

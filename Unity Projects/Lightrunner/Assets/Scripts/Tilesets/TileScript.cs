@@ -30,7 +30,7 @@ public class TileScript : MonoBehaviour
 			//Debug.Log(Mathf.Rad2Deg * collisionAngle);
 
 			// If the collision is between -10 and 10 degrees, that's a game over.
-			if (-10 <= collisionAngle && collisionAngle <= 10)
+			if (-10 <= collisionAngle && collisionAngle <= 10 && gc.PlayerCanAct())
 			{
 				gc.GameOver("you ran into an obstacle.");
 			}

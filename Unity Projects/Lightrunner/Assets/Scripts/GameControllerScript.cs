@@ -21,9 +21,9 @@ public class GameControllerScript : MonoBehaviour
 	public float speed, acceleration;
 	public GameObject playerPrefab;
 	public Vector3 startPos;
-	public bool initialized;
 	public Canvas mainMenu, gameUI, gameOverUI;
-	public TMP_Text timerLabel, gameOverReasonLabel;
+	public Canvas mmButtons, mmCredits;
+	public TMP_Text timerLabel, gameOverReasonLabel, returnMenuLabel;
 
 	public GameObject bgStarfield, bgCityscape;
 	public float bgSpeedMult = 0.05f, bgCitySpeedMult = 0.75f;
@@ -37,6 +37,8 @@ public class GameControllerScript : MonoBehaviour
 	private int initTilesetCursor = 0;
 	private float lastHeight = 0;
 	private bool alreadyGameOver = false;
+	private bool initialized;
+	private bool viewingCredits = false;
 	private float maxVolume = 1;
 
 	private void Start()
@@ -89,6 +91,7 @@ public class GameControllerScript : MonoBehaviour
 		srStarfield.material.SetFloat("_StartTime", startTime);
 		srCityscape.material.SetFloat("_StartTime", startTime);
 		mainMenu.enabled = false;
+		mmButtons.enabled = false;
 		gameUI.enabled = true;
 		initialized = true;
 		PlayNextTrack();
@@ -100,12 +103,27 @@ public class GameControllerScript : MonoBehaviour
 	public void Quit()
 	{
 		Application.Quit();
-	}	
-	
+	}
+
+	/// <summary>
+	/// Toggles viewing of credits while on the main menu
+	/// </summary>
+	public void ToggleCredits()
+	{
+		if (!mainMenu.enabled)
+		{
+			return;
+		}
+
+		viewingCredits = !viewingCredits;
+		mmButtons.enabled = !viewingCredits;
+		mmCredits.enabled = viewingCredits;
+	}
+
 	/// <summary>
 	/// Code runs when player dies or returns to the main menu.
 	/// </summary>
-	public void GameOver(string reason)
+	public void GameOver(string reason, bool immediately = false)
 	{
 		if (alreadyGameOver)
 		{
@@ -119,6 +137,16 @@ public class GameControllerScript : MonoBehaviour
 		gameUI.enabled = false;
 		gameOverUI.enabled = true;
 		gameOverReasonLabel.text = string.Format("You survived for {0:F2} seconds, but {1}", Time.time - startTime, reason);
+		if (immediately)
+		{
+			ToMainMenu();
+		}
+	}
+
+	/// Exists because apparently Unity events can't have two parameters.
+	public void ToMainMenuImmediately()
+	{
+		GameOver("you wanted to stop playing.", true);
 	}
 
 	/// <summary>
@@ -150,6 +178,7 @@ public class GameControllerScript : MonoBehaviour
 		spawnX = startingSpawnX;
 		lastHeight = 0;
 		mainMenu.enabled = true;
+		mmButtons.enabled = true;
 
 		StartCoroutine(FadeToTrack(musicSettings.menuMusic, 3));
 	}
@@ -227,5 +256,36 @@ public class GameControllerScript : MonoBehaviour
 			t += Time.deltaTime / duration;
 			yield return new WaitForEndOfFrame();
 		}
+	}
+
+	public IEnumerator FadeInMenuLabel(float duration)
+	{
+		Color vertexColour = returnMenuLabel.color;
+
+		returnMenuLabel.text = "Returning to menu...";
+		float t = 0;
+		do
+		{
+			vertexColour.a = Mathf.Lerp(0, 1, t);
+			returnMenuLabel.color = vertexColour;
+			t += Time.deltaTime / duration;
+			yield return new WaitForEndOfFrame();
+		} while (vertexColour.a < 1);
+
+		returnMenuLabel.text = "Press ESC or Tap to Exit";
+		ToMainMenuImmediately();
+	}
+
+	public void ResetMenuLabel()
+	{
+		returnMenuLabel.text = "Press ESC or Tap to Exit";
+		Color baseColour = returnMenuLabel.color;
+		baseColour.a = 1;
+		returnMenuLabel.color = baseColour;
+	}
+
+	public bool PlayerCanAct()
+	{
+		return !alreadyGameOver && initialized;
 	}
 }

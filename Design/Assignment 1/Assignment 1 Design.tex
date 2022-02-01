@@ -55,8 +55,6 @@ and the only way to travel vertically is by jumping. The tiles of the level, as 
 will be procedurally generated according to a collection of premade tilesets; this should allow for more variety while also keeping
 the level structured and less chaotic.
 
-\pagebreak
-
 \section{Gameplay}
 
 The core mechanic of the game is the management of the player's light. As mentioned above, this resource will constantly decrease at a slow rate,
@@ -78,7 +76,8 @@ and any tilesets that are no longer visible should be removed from the level.
 
 To avoid overwhelming the player, the difficulty of the game should gradually increase, based on how long the current run has lasted.
 As an example, the first few tilesets may be quite simple, with mostly unbroken platforms and some obstacles, while later tilesets
-might have considerably more obstacles or difficult jumps. The difficulty should be balanced around each run lasting about five minutes, on average.
+might have considerably more obstacles or difficult jumps. The speed at which the tiles move will also gradually speed up.
+The difficulty should be balanced around each run lasting about one to two minutes, on average.
 Simple instructions will be displayed as part of the level at the start of each run, rather than having an explicit instruction popup.
 This makes it so that the player does not learn the basics of the game through trial and error, but optimal strategies (if any exist)
 are left for the player to discover themselves.
@@ -96,10 +95,77 @@ The graphics of the game will be predominantly created using 2D sprites. Certain
 for the player having too much light, may also use particle systems. Given the visual theme of the game, it is likely
 that complex sprite animations will be unnecessary, and simple animations can be done using particle systems instead.
 
-There will likely be some looping royalty-free background music added to the game, as well as a sound effect for jumping.
-These audio elements should also match the futuristic visual theme of the game.
+There will likely be some looping royalty-free background music added to the game,
+which should also match the futuristic visual theme of the game.
 
-Story is not a major part of the game, so there will only be a small amount of lore included with the instructions,
-which will serve as an introduction to the game.
+Story is not really necessary for this type of game, so it will be left out.
+
+\section{Player Experience}
+
+The player experience for \textit{Lightrunner} should start out relatively relaxed, with it progressively becoming
+more intense, suspenseful, and energetic. Players should be able to settle into a kind of rhythm, or flow state,
+as the game progresses, where they are focused and in tune with the gameplay. The use of upbeat, electronic music
+and futuristic neon graphics contribute to this energetic theme, and the game's music player was also coded so
+that tracks fade in and out appropriately in order to avoid disrupting the player's flow.
+The progression from a relaxed experience to a more intense and energetic one is also supported by the game's mechanics
+becoming increasingly difficult as time goes on, with more complex tilesets being spawned that also increase in speed.
+
+Players will likely feel frustrated when they lose. This is okay, as long as the player also feels that they
+lost because of their own actions, rather than because the game made it outright impossible for them to continue.
+The nature of using tilesets will help with this somewhat, as each tileset will have a recognizable pattern and appearance,
+which will help the player decide on the best course of action based on their current situation. For example,
+some tiles will force the player onto two different paths, with either a lot of light collectibles, or no light collectibles.
+The player then has to decide which path to take based on how much light they currently have. There is also an aspect of
+player skill as well, as the player must learn for themselves how far their jumps will take them, whether
+they can land a jump properly based on the current speed, and so on.
+
+The intended audience of the game could be anyone from kids to about middle-aged adults, as players will need to be able to
+react relatively quickly to the game's mechanics. The audience will likely also lean more casual as opposed to ``hardcore'',
+as the game is designed so it can be picked up rather quickly, and put back down again after a few runs. The fact that the
+game tracks each individual run's duration but does not include any leaderboards will also mean that any competitive aspect
+will likely be the player competing with themselves to increase their highest run duration, rather than competing against
+other players directly.
+
+\section{Changes from Original}
+
+The biggest change from the original design is that the average length of a single run was decreased from five minutes to about one to two minutes.
+The reason for this is that designing the tilesets to produce such long individual run times led to the gameplay being rather dull.
+So now, the tilesets are designed so that an average run lasts from about one to two minutes, and there are enough tilesets that a player
+should experience a decent variety in two or three runs. This means there is still about five minutes of content on average.
+
+As for aesthetics, the only changes were that jumping no longer has a sound effect, and there is no story/lore either.
+This is because they were viewed as unnecessary, and did not really fit in with the rest of the game either.
+
+This design document was also updated to reflect the given feedback, as well as to document any third-party assets and other such things that were used.
+
+\section{Works Used}
+
+The use of bloom and post-processing was learned from a \href{https://www.youtube.com/watch?v=WiDVoj5VQ4c}{Brackeys tutorial on 2D glow}.
+
+The main background shader with animated colour was heavily modified from \href{https://www.shadertoy.com/}{Shadertoy's default new shader},
+and translated from GLSL to ShaderGraph.
+
+\subsection{Third-Party Assets}
+
+\subsubsection{Fonts}
+
+\textbf{Comfortaa}
+\begin{itemize}
+    \item Licensed under OFL
+    \item Sourced from \href{https://fonts.google.com/specimen/Comfortaa}{Google Fonts}
+\end{itemize}
+
+\textbf{Nova Square}
+\begin{itemize}
+    \item Licensed under OFL
+    \item Sourced from \href{https://fonts.google.com/specimen/Nova+Square}{Google Fonts}
+\end{itemize}
+
+\subsubsection{Music}
+
+"Furious Freak", "Super Power Cool Dude", "Voxel Revolution"\\
+Kevin MacLeod (\href{https://incompetech.com}{incompetech.com})\\
+Licensed under Creative Commons: By Attribution 3.\\
+\url{http://creativecommons.org/licenses/by/3.0/}
 
 \end{document}
