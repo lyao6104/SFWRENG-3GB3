@@ -1,0 +1,154 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\definecolor{linkcolour}{RGB}{0, 149, 255}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolour
+}
+
+\begin{document}
+
+\title{\textit{Stellar Uprising}}
+\author{Luna Y.}
+\date{
+    SFWRENG 3GB3 -- Assignment 2\\[0.25cm]
+    \today
+}
+\maketitle
+
+\tableofcontents
+
+\section{Basic Information}
+
+In this game, the player will play as the leader of a rebellion against an interstellar empire. The game itself will be a top-down style
+turn-based strategy game with the gameplay dynamic of ``board control'' at its core. The tiles of the board will be the star systems
+making up the aforementioned empire, and the game pieces are represented by fleets of starships. The player starts with a single fleet
+in a single star system, and must use it to capture more systems and eventually win the game by controlling the entire board.
+
+The game takes aesthetic inspiration from similar games such as \textit{Stellaris, Starcraft,} and \textit{Star Wars: Empire at War}.
+The layout of the map will also be similar to that of the galaxy map of \textit{Empire at War}, but differs in that, where \textit{Empire at War}
+has static maps that do not change, this game will have a single map whose layout will be randomly generated between different playthroughs,
+possibly having some basic settings that affect difficulty as well. This will allow for more variety between playthroughs, as well as more replayability.
+
+The combat of the game will be somewhat similar to \textit{Chess}. Each fleet can move to any adjacent system.
+For simplicity, if a player moves a fleet onto a system containing a fleet from the opposing player, the attacking
+fleet defeats the defending one and conquers the system. Any attacking fleet will conquer a system if they arrive unopposed as well.
+However, the combat differs from \textit{Chess} in that there is only one type of unit, with basic movement mechanics (so nothing
+similar to knights, bishops, etc.). This style of combat also encourages more strategic gameplay. For example, if an imperial fleet
+is defending a system, and the adjacent systems were empty, the player will not be able to approach the defended planet without taking losses,
+since moving in will leave the player's fleets vulnerable to an attack.
+
+\section{Gameplay}
+
+As mentioned above, the game board will consist of various tiles, represented by star systems, and pieces, represented by
+fleets of starships. The star systems will be connected to one another via ``hyperlanes'', creating a structure that is essentially an undirected graph.
+The tiles of the board should form a connected graph, but two systems might not necessarily be directly connected to one another.
+The player begins the game with one fleet and one system, and must use their initial fleet to capture
+more tiles in order to win the game. The AI opponent will start with considerably more resources at its disposal than the player,
+which the player will have to overcome. The player may obtain more fleets by capturing/liberating systems from the AI,
+while the AI will receive new fleets every couple of turns. This also fits the game's narrative rather well; the player is leading
+a rebellion that has popular support, so liberating systems allows more people to join them, while the AI-controlled empire must
+assemble new fleets the regular way.
+
+The board will also be procedurally generated, in order to save time on level design and add variety between playthroughs.
+Parameters such as the number of systems or number of hyperlanes should also be modifiable, which will also have an effect
+on how difficult the game is.
+
+The game will feature turn-based movement and combat, with each fleet being able to move independently from one another
+(i.e. the player can move all their fleets in one turn, rather than only one fleet per turn). The combat will also be very simple,
+with attacking fleets always winning over any defenders, as described above. Because of this, each tile of the board will also be limited
+to holding one fleet at a time. This might cause issues with how new fleets are spawned, so in the event that a new fleet is trying to spawn
+on an occupied system, it will instead be placed at the nearest unoccupied friendly system.
+
+\section{Aesthetics}
+
+The visuals of the game should look futuristic, and themed around science-fiction and space.
+The user interface of the game should somewhat resemble a kind of spaceship/computer console
+(similar to the Terran interface in \textit{Starcraft}).
+
+The graphics of the game will be predominantly created using 2D sprites. That being said,
+graphics are not extremely important for this game, and the visuals should be kept relatively simple
+to save time.
+
+The music should also have background music that is not too obtrusive, and this music should have
+a futuristic, possibly militaristic feel to it.
+
+The player will receive a brief text-based introduction to the game universe when they start a new game.
+Story is not very important for this game, but the player does need an introduction to the game's setting,
+however brief it may be.
+
+\section{Player Experience}
+
+Overall, the game should feel slower-paced and methodical. This is reinforced by the turn-based nature of the game,
+which allows the player to take their time and really think strategically. As a side effect of this, it should
+theoretically be less likely for the player to get frustrated at the game for reasons like being caught off-guard
+by the AI, or losing a system or fleet, since they would presumably be able to predict these situations to a reasonable degree,
+and course correct where necessary.
+
+\pagebreak
+
+The player should also feel like they are overcoming some very difficult (but not necessarily insurmountable) odds in order to
+achieve victory against the Empire. This is supported by the game's narrative, as well as the player's starting position.
+Realistically, any uprising against a large interstellar state would be hard-pressed to succeed, and this is reflected by
+the vast difference between the player, who starts with one system and a single fleet, and the AI, which starts with the rest of
+the star systems and several more fleets. It is up to the player to overcome these odds and win, and if they do, they should
+feel a sense of triumph as well. That being said, however, this difficulty will likely be indirectly adjustable through various
+map generation settings before the game starts, for players who prefer a slightly more relaxed experience.
+
+% \section{Changes from Original}
+
+% The biggest change from the original design is that the average length of a single run was decreased from five minutes to about one to two minutes.
+% The reason for this is that designing the tilesets to produce such long individual run times led to the gameplay being rather dull.
+% So now, the tilesets are designed so that an average run lasts from about one to two minutes, and there are enough tilesets that a player
+% should experience a decent variety in two or three runs. This means there is still about five minutes of content on average.
+
+% As for aesthetics, the only changes were that jumping no longer has a sound effect, and there is no story/lore either.
+% This is because they were viewed as unnecessary, and did not really fit in with the rest of the game either.
+
+% This design document was also updated to reflect the given feedback, as well as to document any third-party assets and other such things that were used.
+
+% \section{Works Used}
+
+% The use of bloom and post-processing was learned from a \href{https://www.youtube.com/watch?v=WiDVoj5VQ4c}{Brackeys tutorial on 2D glow}.
+
+% The main background shader with animated colour was heavily modified from \href{https://www.shadertoy.com/}{Shadertoy's default new shader},
+% and translated from GLSL to ShaderGraph.
+
+% \subsection{Third-Party Assets}
+
+% \subsubsection{Fonts}
+
+% \textbf{Comfortaa}
+% \begin{itemize}
+%     \item Licensed under OFL
+%     \item Sourced from \href{https://fonts.google.com/specimen/Comfortaa}{Google Fonts}
+% \end{itemize}
+
+% \textbf{Nova Square}
+% \begin{itemize}
+%     \item Licensed under OFL
+%     \item Sourced from \href{https://fonts.google.com/specimen/Nova+Square}{Google Fonts}
+% \end{itemize}
+
+% \subsubsection{Music}
+
+% "Furious Freak", "Super Power Cool Dude", "Voxel Revolution"\\
+% Kevin MacLeod (\href{https://incompetech.com}{incompetech.com})\\
+% Licensed under Creative Commons: By Attribution 3.\\
+% \url{http://creativecommons.org/licenses/by/3.0/}
+
+\end{document}
