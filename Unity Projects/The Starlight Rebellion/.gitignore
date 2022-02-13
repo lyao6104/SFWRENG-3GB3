@@ -5,6 +5,8 @@
 # Other third-party assets
 /[Aa]ssets/[Aa]star[Pp]athfinding[Pp]roject/
 /[Aa]ssets/[Aa]star[Pp]athfinding[Pp]roject.meta
+/[Aa]ssets/[Ss]prites/[Th]ird-[Pp]arty/
+/[Aa]ssets/[Ss]prites/[Th]ird-[Pp]arty.meta
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #

@@ -99,8 +99,6 @@ theoretically be less likely for the player to get frustrated at the game for re
 by the AI, or losing a system or fleet, since they would presumably be able to predict these situations to a reasonable degree,
 and course correct where necessary.
 
-\pagebreak
-
 The player should also feel like they are overcoming some very difficult (but not necessarily insurmountable) odds in order to
 achieve victory against the Empire. This is supported by the game's narrative, as well as the player's starting position.
 Realistically, any uprising against a large interstellar state would be hard-pressed to succeed, and this is reflected by
@@ -128,28 +126,42 @@ map generation settings before the game starts, for players who prefer a slightl
 The map generation algorithm uses a technique involving grids in order to efficiently test for overlap, which was learned from
 \href{https://www.youtube.com/watch?v=7WcmyxyFO7o}{this video}.
 
-% The use of bloom and post-processing was learned from a \href{https://www.youtube.com/watch?v=WiDVoj5VQ4c}{Brackeys tutorial on 2D glow}.
+\subsection{Code}
 
-% The main background shader with animated colour was heavily modified from \href{https://www.shadertoy.com/}{Shadertoy's default new shader},
-% and translated from GLSL to ShaderGraph.
+The name generation script and object selection script was taken from a personal project of mine called \textit{Nightscape},
+which is currently not released publicly. Many of the names themselves include segments generated from
+\href{https://www.fantasynamegenerators.com/}{Fantasy Name Generators}.
 
-% \subsection{Third-Party Assets}
+This game also uses a lot of miscellaneous code originally created for \textit{Lightrunner}, including various shaders,
+as well as the audio player.
 
-% \subsubsection{Fonts}
+The game also uses the \href{https://arongranberg.com/astar/}{A* Pathfinding Project} as its pathfinding algorithm,
+which uses the \href{https://unity3d.com/legal/as_terms}{Standard Unity Asset Store EULA}.
 
-% \textbf{Comfortaa}
-% \begin{itemize}
-%     \item Licensed under OFL
-%     \item Sourced from \href{https://fonts.google.com/specimen/Comfortaa}{Google Fonts}
-% \end{itemize}
+\subsection{Art}
 
-% \textbf{Nova Square}
-% \begin{itemize}
-%     \item Licensed under OFL
-%     \item Sourced from \href{https://fonts.google.com/specimen/Nova+Square}{Google Fonts}
-% \end{itemize}
+\textbf{UI Minimalism SciFi}
+\begin{itemize}
+    \item The game uses UI assets from the \href{https://opengameart.org/content/assets-ui-minimalism-scifi}{``UI Minimalism SciFi''} pack,
+        created by \href{https://wenrexa.itch.io/}{Wenrexa}.
+    \item These assets are in the public domain, under the \href{https://creativecommons.org/publicdomain/zero/1.0/}{CC0 1.0} license.
+\end{itemize}
 
-% \subsubsection{Music}
+\subsection{Fonts}
+
+\textbf{Nova Square}
+\begin{itemize}
+    \item Licensed under OFL
+    \item Sourced from \href{https://fonts.google.com/specimen/Nova+Square}{Google Fonts}
+\end{itemize}
+
+\textbf{Spartan}
+\begin{itemize}
+    \item Licensed under OFL
+    \item Sourced from \href{https://fonts.google.com/specimen/Spartan}{Google Fonts}
+\end{itemize}
+
+% \subsection{Music}
 
 % "Furious Freak", "Super Power Cool Dude", "Voxel Revolution"\\
 % Kevin MacLeod (\href{https://incompetech.com}{incompetech.com})\\
