@@ -1,0 +1,78 @@
+{
+  "listName": "EmpireFleetNames",
+  "nameSegments": [
+    {
+      "segmentType": "romanNumerals",
+      "segments": [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI",
+        "VII",
+        "VIII",
+        "IX",
+        "X",
+        "XI",
+        "XII",
+        "XIII",
+        "XIV",
+        "XV",
+        "XVI",
+        "XVII",
+        "XVIII",
+        "XIX",
+        "XX",
+        "XXI",
+        "XXII",
+        "XXIII",
+        "XXIV",
+        "XXV"
+      ]
+    },
+    {
+      "segmentType": "legionary",
+      "segments": [
+        "Legion",
+        "Cohort",
+        "Reserve Legion",
+        "Imperial Legion",
+        "Auxiliaries"
+      ]
+    },
+    {
+      "segmentType": "callsign_init",
+      "segments": [
+        "Talon's",
+        "Shadow's",
+        "Gloom's",
+        "Umbral",
+        "Penumbral",
+        "Blight's"
+      ]
+    },
+    {
+      "segmentType": "callsign_post",
+      "segments": [
+        "Claw",
+        "Claws",
+        "Whisper",
+        "Fang",
+        "Eclipse",
+        "Marauders",
+        "Embrace"
+      ]
+    }
+  ],
+  "nameFormats": [
+    {
+      "value": "{romanNumerals}. {legionary}",
+      "weight": 15
+    },
+    {
+      "value": "{romanNumerals}. Legion \"{callsign_init} {callsign_post}\"",
+      "weight": 5
+    }
+  ]
+}

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Options
+  - CMVCam
+  - Block Manager
+  - AudioController
   layers:
   - Default
   - TransparentFX

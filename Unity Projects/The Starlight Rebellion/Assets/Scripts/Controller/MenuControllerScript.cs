@@ -6,10 +6,21 @@ using TMPro;
 
 public class MenuControllerScript : MonoBehaviour
 {
+	public GameObject audioControllerPrefab;
 	public Canvas optionsCanvas, creditsCanvas;
 
 	public TMP_InputField sysCountIF, minHLanesIF, maxHLanesIF, minDistanceIF;
 	public OptionsScript gameOptions;
+
+	private void Start()
+	{
+		Application.targetFrameRate = 60;
+
+		if (GameObject.FindGameObjectWithTag("AudioController") == null)
+		{
+			Instantiate(audioControllerPrefab);
+		}
+	}
 
 	public void ToggleOptions()
 	{

@@ -1,0 +1,52 @@
+{
+  "listName": "RebelFleetNames",
+  "nameSegments": [
+    {
+      "segmentType": "numerical",
+      "segments": ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    },
+    {
+      "segmentType": "numericalSuffix",
+      "segments": ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    },
+    {
+      "segmentType": "fleetStandard",
+      "segments": ["Fleet", "Squadron", "Detachment", "Starfleet"]
+    },
+    {
+      "segmentType": "callsign_init",
+      "segments": [
+        "Light's",
+        "Dawn's",
+        "Sun's",
+        "Solar",
+        "Lunar",
+        "Hope's",
+        "Gryphon's",
+        "Eagle's"
+      ]
+    },
+    {
+      "segmentType": "callsign_post",
+      "segments": [
+        "Reach",
+        "Wings",
+        "Whisper",
+        "Vanguard",
+        "Return",
+        "Guardians",
+        "Embrace"
+      ]
+    }
+  ],
+  "nameFormats": [
+    {
+      "value": "{numerical}{numericalSuffix}{numericalSuffix}. {fleetStandard}",
+      "weight": 17
+    },
+    {
+      "value": "{numerical}{numericalSuffix}{numericalSuffix}. Fleet \"{callsign_init} {callsign_post}\"",
+      "weight": 3
+    }
+  ]
+}

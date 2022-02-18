@@ -12,10 +12,20 @@ public class NameSetupScript : MonoBehaviour
 {
 	private void Start()
 	{
-		// Load rift names. Uses names from https://www.fantasynamegenerators.com/
+		// Uses names from https://www.fantasynamegenerators.com/
 		var starsFile = Resources.Load<TextAsset>("Names/SystemNames");
+		var empiresFile = Resources.Load<TextAsset>("Names/EmpireNames");
+		var empireFleetsFile = Resources.Load<TextAsset>("Names/EmpireFleetNames");
+		var rebelFleetsFile = Resources.Load<TextAsset>("Names/RebelFleetNames");
+
 		NameList starsList = JsonUtility.FromJson<NameList>(starsFile.text);
-		//Debug.Log(JsonUtility.ToJson(riftList));
+		NameList empiresList = JsonUtility.FromJson<NameList>(empiresFile.text);
+		NameList empireFleetsList = JsonUtility.FromJson<NameList>(empireFleetsFile.text);
+		NameList rebelFleetsList = JsonUtility.FromJson<NameList>(rebelFleetsFile.text);
+
 		NamesUtil.LoadNameList(starsList);
+		NamesUtil.LoadNameList(empiresList);
+		NamesUtil.LoadNameList(empireFleetsList);
+		NamesUtil.LoadNameList(rebelFleetsList);
 	}
 }

@@ -1,0 +1,31 @@
+{
+  "listName": "EmpireNames",
+  "nameSegments": [
+    {
+      "segmentType": "tenebrous",
+      "segments": ["Shadow", "Darkness", "Gloom", "Night"]
+    },
+    {
+      "segmentType": "adjectives",
+      "segments": ["Rising", "Endless", "Eternal", "Voidlit"]
+    },
+    {
+      "segmentType": "latin",
+      "segments": ["Tenebrae", "Malefica", "Umbrum", "Inanis"]
+    }
+  ],
+  "nameFormats": [
+    {
+      "value": "Empire of {tenebrous}",
+      "weight": 10
+    },
+    {
+      "value": "Empire of the {adjectives} {tenebrous}",
+      "weight": 10
+    },
+    {
+      "value": "Imperium {latin}",
+      "weight": 10
+    }
+  ]
+}

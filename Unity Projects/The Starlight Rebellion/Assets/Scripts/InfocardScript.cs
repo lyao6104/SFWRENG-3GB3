@@ -18,6 +18,13 @@ public class InfocardScript : MonoBehaviour
 		}
 		systemLabel.text = selected.name;
 		controllerLabel.text = string.Format("Controlled By: {0}", gc.GetPlayerName(selected.controller));
-		// TODO update fleet label
+		if (selected.fleet == null)
+		{
+			fleetLabel.text = "Fleet: None";
+		}
+		else
+		{
+			fleetLabel.text = string.Format("Fleet: {0}", selected.fleet.name);
+		}
 	}
 }

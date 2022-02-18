@@ -35,12 +35,110 @@
     {
       "segmentType": "numerical",
       "segments": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+    },
+    {
+      "segmentType": "fantasyStars",
+      "segments": [
+        "Grea",
+        "Agroak",
+        "Eklaug",
+        "Xeoy",
+        "Geon",
+        "Phosresh",
+        "Gleekrems",
+        "Ubreicdikt",
+        "Uclaisla",
+        "Gragtub",
+        "Due",
+        "Shoag",
+        "Ezih",
+        "Bleoks",
+        "Broo",
+        "Grusdub",
+        "Braendens",
+        "Sitlac",
+        "Vlioglas",
+        "Thuphoik",
+        "Phaur",
+        "Dri",
+        "Oflaof",
+        "Abraus",
+        "Driat",
+        "Relseo",
+        "Ekloapheys",
+        "Ethebreeft",
+        "Trogup",
+        "Draigguct",
+        "Strue",
+        "Vreo",
+        "Wag",
+        "Blig",
+        "Kreoh",
+        "Grossee",
+        "Uflozuad",
+        "Phaoshux",
+        "Doipref",
+        "Geshift"
+      ]
+    },
+    {
+      "segmentType": "fantasyElven",
+      "segments": [
+        "Anhlenora",
+        "Ryvadell",
+        "Afsshara",
+        "Ollathlond",
+        "Sylmlune",
+        "Nylohona",
+        "Iyho Anore",
+        "Elysa Alari",
+        "Emyllin",
+        "Gasarion",
+        "Eyneshys",
+        "Thelaththemar",
+        "Enh Caelora",
+        "Nytsahone",
+        "Afna Caelora",
+        "A'haluma",
+        "Umyve Edhil",
+        "Nelnalone",
+        "Ishhamelle",
+        "Lranshara",
+        "Olen Lenora",
+        "Kyen Aiqua",
+        "Shhenore",
+        "Cao Shaeras",
+        "Olyanamelle",
+        "Onyvelion",
+        "Lyvalian",
+        "Saf Caelora",
+        "Imena Dorthore",
+        "Haensari",
+        "Emylatheas",
+        "Lylenthalas",
+        "Mave Aiqua",
+        "Kave Belanore",
+        "Umyseshara",
+        "Kmagroth",
+        "Asyethtalos",
+        "Nilvashys",
+        "Y'nelenor",
+        "Wealion"
+      ]
     }
   ],
   "nameFormats": [
     {
       "value": "{alphabetical}{alphabetical}-{numerical}{numerical}{numerical}",
-      "weight": 15
+      "weight": 30
+    },
+    {
+      "value": "{fantasyStars}",
+      "weight": 10
+    },
+    {
+      "value": "{fantasyElven}",
+      "weight": 10
     }
   ]
 }

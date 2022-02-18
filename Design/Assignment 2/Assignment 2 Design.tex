@@ -40,22 +40,28 @@ making up the aforementioned empire, and the game pieces are represented by flee
 in a single star system, and must use it to capture more systems and eventually win the game by controlling the entire board.
 
 The game takes aesthetic inspiration from similar games such as \textit{Stellaris, Starcraft,} and \textit{Star Wars: Empire at War}.
-The layout of the map will also be similar to that of the galaxy map of \textit{Empire at War}, but differs in that, where \textit{Empire at War}
-has static maps that do not change, this game will have a single map whose layout will be randomly generated between different playthroughs,
-possibly having some basic settings that affect difficulty as well. This will allow for more variety between playthroughs, as well as more replayability.
+The layout of the map will also be similar to that of the galaxy map of \textit{Empire at War}, which is essentially just an undirected graph
+with nodes being star systems, and edges being hyperlanes. I believe this style of movement encourages slower, more strategic gameplay,
+as units on the game board are considerably more limited in their movement than they would be in a standard RTS or turn-based strategy
+game with conventional tiles. However, this game differs in that, where \textit{Empire at War} has static maps that do not change,
+this game will have a single map whose layout will be randomly generated between different playthroughs, possibly having some basic
+settings that affect difficulty as well. This will allow for more variety between playthroughs, as well as more replayability.
 
 The combat of the game will be somewhat similar to \textit{Chess}. Each fleet can move to any adjacent system.
 For simplicity, if a player moves a fleet onto a system containing a fleet from the opposing player, the attacking
 fleet defeats the defending one and conquers the system. Any attacking fleet will conquer a system if they arrive unopposed as well.
 However, the combat differs from \textit{Chess} in that there is only one type of unit, with basic movement mechanics (so nothing
-similar to knights, bishops, etc.). This style of combat also encourages more strategic gameplay. For example, if an imperial fleet
-is defending a system, and the adjacent systems were empty, the player will not be able to approach the defended planet without taking losses,
-since moving in will leave the player's fleets vulnerable to an attack.
+similar to knights, bishops, etc.). Using \textit{Chess}-style combat as opposed to a more conventional system where units have attack
+and defence values also encourages more strategic gameplay. For example, if an imperial fleet is defending a system,
+and the adjacent systems were empty, the player will not be able to approach the defended planet without taking losses,
+since moving in will leave the player's fleets vulnerable to an attack. As such, the player will have to either lure the imperial fleet out somehow,
+or send in more fleets to overwhelm it, which is a trade-off they must consider. The player might also choose to be more aggressive,
+which likely leads to more losses, or they can choose to be more defensive, which allows their opponent to grow stronger over time.
 
 \section{Gameplay}
 
 As mentioned above, the game board will consist of various tiles, represented by star systems, and pieces, represented by
-fleets of starships. The star systems will be connected to one another via ``hyperlanes'', creating a structure that is essentially an undirected graph.
+fleets of starships. The star systems will be connected to one another via ``hyperlanes''.
 The tiles of the board should form a connected graph, but two systems might not necessarily be directly connected to one another.
 The player begins the game with one fleet and one system, and must use their initial fleet to capture
 more tiles in order to win the game. The AI opponent will start with considerably more resources at its disposal than the player,
@@ -87,9 +93,9 @@ to save time.
 The music should also have background music that is not too obtrusive, and this music should have
 a futuristic, possibly militaristic feel to it.
 
-The player will receive a brief text-based introduction to the game universe when they start a new game.
-Story is not very important for this game, but the player does need an introduction to the game's setting,
-however brief it may be.
+The player will receive a brief text-based introduction to the game universe when they start a new game, as well as
+some flavour pop-ups over the course of gameplay. Story is not \textit{extremely} important, but the player does need an
+introduction to the game's setting, however brief it may be.
 
 \section{Player Experience}
 
@@ -107,17 +113,32 @@ the star systems and several more fleets. It is up to the player to overcome the
 feel a sense of triumph as well. That being said, however, this difficulty will likely be indirectly adjustable through various
 map generation settings before the game starts, for players who prefer a slightly more relaxed experience.
 
-% \section{Changes from Original}
+\section{Changes from Original}
 
-% The biggest change from the original design is that the average length of a single run was decreased from five minutes to about one to two minutes.
-% The reason for this is that designing the tilesets to produce such long individual run times led to the gameplay being rather dull.
-% So now, the tilesets are designed so that an average run lasts from about one to two minutes, and there are enough tilesets that a player
-% should experience a decent variety in two or three runs. This means there is still about five minutes of content on average.
+There were not very many drastic changes from the original design; they were mainly small adjustments made in order to improve gameplay.
+For example, one feature that was added is that when the player first loses all of their fleets, they are given a single backup fleet so
+that they have a chance to recover. This was added, as there is a lot of randomness in the game's setup, which led to some situations
+that I felt were a bit \textit{too} unfair; this should hopefully help alleviate that somewhat.
 
-% As for aesthetics, the only changes were that jumping no longer has a sound effect, and there is no story/lore either.
-% This is because they were viewed as unnecessary, and did not really fit in with the rest of the game either.
+One aspect of the game that received a lot of changes over the course of the assignment was the map generation. Different parameters
+were experimented with before settling on the current default settings of 15 stars, between 1 and 3 hyperlanes, and a minimum distance
+between stars of 5 units. These settings seem to result in a decently challenging game while not being extremely overwhelming.
+It's also interesting to see the effects that the map generation parameters have on gameplay; the number of star systems is closely related
+to the ``early-game'' difficulty, as it affects the starting strength of the AI opponent, in addition to also affecting the amount of time it takes
+to win the game (as an aside, the minimum star count of 5 seems to work quite well as a tutorial of sorts, as it allows the player to familiarize themselves
+with the controls while being fairly easy). Changing the number of hyperlanes each star can have also affects the difficulty, albeit not linearly;
+lowering this number results in the player having less manoeuvrability while also reducing the possible directions an attack might come from,
+while raising it gives the player more room to manoeuvre fleets and retreat, while also increasing the amount of directions they need to defend.
+Minimum distance between stars, on the other hand, doesn't affect difficulty much; it mainly just allows the player to reduce clutter
+by increasing it.
 
-% This design document was also updated to reflect the given feedback, as well as to document any third-party assets and other such things that were used.
+Another minor change that was added is that certain statistics, such as the game's length, and how many casualties the player took,
+are now tracked and shown to the player when they successfully beat the game. This encourages the player to create meta-goals to try
+and minimize how long it takes them to win, as well as how many losses they take. Another fun meta-goal that might arise comes from the
+fact that the backup fleet which spawns as the player's last chance has a special name; this might encourage the player to try and make sure
+this fleet survives to the end of the game, if it appears.
+
+This design document was also updated to reflect the given feedback, as well as to document any third-party assets and other such things that were used.
 
 \section{Works Used}
 
@@ -128,8 +149,9 @@ The map generation algorithm uses a technique involving grids in order to effici
 
 \subsection{Code}
 
-The name generation script and object selection script was taken from a personal project of mine called \textit{Nightscape},
-which is currently not released publicly. Many of the names themselves include segments generated from
+The game features many script assets originally made for a personal project of mine called \textit{Nightscape},
+which is currently not released publicly. This includes camera functionality, object selection, as well as
+random name generation. Many of the names themselves include segments generated from
 \href{https://www.fantasynamegenerators.com/}{Fantasy Name Generators}.
 
 This game also uses a lot of miscellaneous code originally created for \textit{Lightrunner}, including various shaders,
@@ -147,6 +169,8 @@ which uses the \href{https://unity3d.com/legal/as_terms}{Standard Unity Asset St
     \item These assets are in the public domain, under the \href{https://creativecommons.org/publicdomain/zero/1.0/}{CC0 1.0} license.
 \end{itemize}
 
+\pagebreak
+
 \subsection{Fonts}
 
 \textbf{Nova Square}
@@ -161,11 +185,18 @@ which uses the \href{https://unity3d.com/legal/as_terms}{Standard Unity Asset St
     \item Sourced from \href{https://fonts.google.com/specimen/Spartan}{Google Fonts}
 \end{itemize}
 
-% \subsection{Music}
+\subsection{Music}
 
-% "Furious Freak", "Super Power Cool Dude", "Voxel Revolution"\\
-% Kevin MacLeod (\href{https://incompetech.com}{incompetech.com})\\
-% Licensed under Creative Commons: By Attribution 3.\\
-% \url{http://creativecommons.org/licenses/by/3.0/}
+Auroras of Saturn by MusicLFiles\\
+Link: \url{https://filmmusic.io/song/6782-auroras-of-saturn}\\
+License: \url{https://filmmusic.io/standard-license}
+
+Dawn by Alexander Nakarada\\
+Link: \url{https://filmmusic.io/song/4867-dawn}\\
+License: \url{https://filmmusic.io/standard-license}
+
+Horizon Flare by Alexander Nakarada\\
+Link: \url{https://filmmusic.io/song/4837-horizon-flare}\\
+License: \url{https://filmmusic.io/standard-license}
 
 \end{document}

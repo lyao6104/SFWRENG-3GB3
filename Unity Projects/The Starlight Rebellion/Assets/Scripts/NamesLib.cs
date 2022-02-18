@@ -52,7 +52,7 @@ namespace NamesLib
 
 		public static void LoadNameList(NameList toLoad)
 		{
-			loadedNamelists.Add(toLoad.listName, toLoad);
+			loadedNamelists[toLoad.listName] = toLoad;
 			Debug.Log("Loaded NameList " + toLoad.listName);
 		}
 
@@ -103,9 +103,14 @@ namespace NamesLib
 			return GetName("SystemNames");
 		}
 
+		public static string GetEmpireName()
+		{
+			return GetName("EmpireNames");
+		}
+
 		public static string GetFleetName(bool imperial = false)
 		{
-			return GetName(imperial ? "FleetNames_I" : "FleetNames_R");
+			return GetName(imperial ? "EmpireFleetNames" : "RebelFleetNames");
 		}
 	}
 }
