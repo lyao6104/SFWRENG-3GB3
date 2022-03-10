@@ -36,6 +36,8 @@ public class GameControllerScript : MonoBehaviour
 	{
 		gameOptions = GameObject.FindGameObjectWithTag("Options").GetComponent<OptionsScript>();
 
+		FleetScript.ResetRebelCasualties();
+
 		GenerateMap();
 	}
 

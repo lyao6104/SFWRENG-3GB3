@@ -25,6 +25,11 @@ public class FleetScript : MonoBehaviour
 		return rebelCasualties;
 	}
 
+	public static void ResetRebelCasualties()
+	{
+		rebelCasualties = 0;
+	}
+
 	private void Start()
 	{
 		gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerScript>();
