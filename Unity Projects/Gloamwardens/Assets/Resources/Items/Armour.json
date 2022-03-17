@@ -1,0 +1,33 @@
+{
+    "armour": [
+      {
+        "name": "Test Light Coat",
+        "description": "A coat of light for testing.",
+        "tags": ["Armour", "Light Armour", "Torso", "Testing"],
+        "slot": "Torso",
+        "rarity": 2,
+        "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+        "spritePath": "Third-Party/Sprites/Armour/coat_black",
+        "type": "Light",
+        "healthBonus": 0,
+        "manaBonus": 10,
+        "physicalArmour": 2,
+        "magicalArmour": 10
+      },
+      {
+        "name": "Test Light Pants",
+        "description": "A pair of pants of light for testing.",
+        "tags": ["Armour", "Light Armour", "Legs", "Testing"],
+        "slot": "Legs",
+        "rarity": 2,
+        "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+        "spritePath": "Third-Party/Sprites/Armour/leg_armor01",
+        "type": "Light",
+        "healthBonus": 0,
+        "manaBonus": 10,
+        "physicalArmour": 2,
+        "magicalArmour": 10
+      }
+    ]
+  }
+  

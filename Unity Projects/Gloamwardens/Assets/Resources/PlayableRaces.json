@@ -1,0 +1,11 @@
+{
+  "races": [
+    {
+      "name": "Human",
+      "baseHealth": 100,
+      "baseMana": 100,
+      "basePhysicalResist": 0,
+      "baseMagicalResist": 0
+    }
+  ]
+}

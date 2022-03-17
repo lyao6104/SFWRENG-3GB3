@@ -1,0 +1,20 @@
+{
+  "weapons": [
+    {
+      "name": "Test Light Staff",
+      "description": "A staff of light for testing.",
+      "tags": ["Weapon", "Light Staff", "Testing"],
+      "slot": "Weapon",
+      "rarity": 2,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Weapons/staff_plain",
+      "type": "LightStaff",
+      "baseDamage": 10,
+      "baseSpeed": 1,
+      "baseRange": 30,
+      "manaCost": 10,
+      "isMagical": true,
+      "isTaunting": false
+    }
+  ]
+}

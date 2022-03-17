@@ -1,0 +1,185 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\definecolor{linkcolour}{RGB}{0, 149, 255}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolour
+}
+
+\begin{document}
+
+\title{\textit{Gloamwardens}}
+\author{Luna Y.}
+\date{
+    SFWRENG 3GB3 -- Assignment 4\\[0.25cm]
+    \today
+}
+\maketitle
+
+\tableofcontents
+
+\section{Basic Information}
+
+Tower defence games have a number of common conventions: one prominent convention is that the player's units are static, unmoving towers
+that are immune to damage from enemies. That being said, this is not always the case; in \textit{Orcs Must Die}, defences such as walls
+or archers can be destroyed or killed by enemies, and if \textit{Kingdom Rush}, some towers will spawn friendly units that can be attacked by
+enemies, or told by the player to gather at a designated location. However, even if some tower defence games feature RTS-like units in some
+capacity, they are usually considered disposable or replaceable; losing them is usually a minor inconvenience, like in RTS games.
+
+For this assignment, the game will be a subvert the tower defence convention mentioned above. Instead, the player's units will be
+characters similar to those in tactical RPGs, rather than buildings, and the player will use these characters to autonomously defend
+a number of converging paths, much like in tower defence games. The player is still limited in how much control they have over their units;
+rather than being able to explicitly tell them to attack a specific enemy, they will instead give priorities, similar to how targeting
+in \textit{Bloons TD 6} works. However, each unit will have progression and equipment that is somewhat similar to squad-based tactics games
+like the newer \textit{XCOM} games, or role-playing games like \textit{Dungeons and Dragons}.
+
+\section{Gameplay}
+
+The game will have multiple (as in, at least two) pre-made levels that are accessible at any time, with the first level also serving as a tutorial of sorts.
+Gameplay in each level will follow the basic tower defence formula: there are one or more paths, waves of enemies appear at one end and travel to the other,
+and if an enemy reaches the end, the player loses lives. However, instead of placing towers, the player will instead assemble parties of adventurers
+and place them along the path. Adventurers in each party will autonomously fight enemies and support allies that are nearby. Players cannot directly
+control adventurers, but they may adjust their targeting priorities in-between waves. The player is also able to signal parties to retreat, at which point
+they are removed from the game area, and may be summoned again after the current wave ends.
+
+At the start of a level, the player hires adventurers, which have attributes such as base health, base mana, name, race, etc. Adventurers are
+automatically assigned a class (and, by extension, a role of either tank, damage dealer, or support), which determines what skills they can acquire,
+what equipment they can use, and so on. If an adventurer dies from reaching zero health, they are permanently gone, which contrasts heavily with how
+towers work in traditional tower defence games (since usually, they are either invincible or easily replaceable). As such, if an adventurer is in danger,
+the player must weigh the benefits of having their party retreat, allowing enemies to pass to the player's next line of defence, or keeping them
+in the fight, which can result in the adventurer or even their party dying. Adventurers earn experience by defeating enemies, and will level up
+at various intervals, granting them skill points which they can use to unlock skills/perks that can either improve their attributes, or grant them
+new attacks and abilities.
+
+Players assemble parties of adventurers (most likely four, to emulate the standard party composition in MMORPGs, though instead of forcing two damage
+dealers, a support, and a tank, they may have any amount of each role), and these parties (rather than individual adventurers) can then be placed
+somewhere on the path during a level. All enemies that encounter the party will stop to fight the adventurers, and will continue to do so until the party
+retreats, or either the enemies or the party members are defeated.
+
+In each level, the player must defeat a certain number of enemy waves to complete it, at which point they may either exit the level,
+or continue to play. If they continue, then new waves will that get progressively stronger will continue to appear until the player either loses
+or quits. Because the player must spend time between waves to improve their adventurers, and possibly adjust party compositions, each wave
+must be manually launched by the player.
+
+Combat works as follows: characters pick a target nearby that satisfies their targeting conditions (e.g. if an adventurer is set to always target
+the enemy with highest health, they will do so), and then, in real time, perform a set of attacks on them, with each one having its own cooldown timer.
+Each character will have a basic attack, and adventurers can unlock more by using certain weapons or acquiring skills. Adventurers will generate
+some kind of ``threat'' resource when attacking, and enemies will always attack whoever has the highest threat. This allows for more complex gameplay,
+where players may have well-armoured adventurers that generate high amounts of threat to protect their more fragile party members. Each character
+will have physical and ranged damage resistance values, which decrease the damage they take of the respective type, and may be increased
+from skills or equipment.
+
+\section{Aesthetics}
+
+The game will be themed around a high fantasy setting. Because the only assets I could find were more ``dark'' and gloomy, rather than bright
+and vivid, the visual style of the game will be darker as well. Any music used should be appropriate for a medieval high fantasy setting
+(i.e. should be more instrumental/orchestral, rather than electronic), and ideally, the combat and ``build'' phases should have different music playing.
+The former should have more energetic music, while the latter should have more relaxed or suspenseful music.
+
+The premise of the game is that the player leads a company of adventurers whose goal is to safeguard the nighttime from monsters and other such villains
+(hence the name \textit{Gloamwardens}). They do so by venturing into caves and other such places to prevent the monsters within from leaving
+to attack the populace. This small bit of story should be conveyed to the player as part of an introduction, but there doesn't need to be
+much of a narrative during gameplay. The adventurers, each of which has their own name, class, appearance, etc. also add an element of emergent
+storytelling, which can be further supported by tracking various statistics. For example, the player might feel impacted if they lose one
+of their adventurers, who had killed dozens or even hundreds of enemies, who they've had since the beginning of a level, and invested heavily in.
+
+\section{Player Experience}
+
+The player is rather detached from the combat of the game, so that will always be a kind of dampener on the intensity of the player experience.
+Nevertheless, this game should take a lesson from \textit{Kingdom Rush} and aim to have an engaging combat phase where the player is not bored.
+Even though the player is very limited in how they can interact with their adventurer parties during the combat phase, they should still feel invested
+in how well their parties are faring.
+
+Gameplay should also feel strategic. The player should be able to formulate a plan (e.g. what kind of adventurers to put in a party, where to place the party,
+how should they advance their skills, etc.) and carry it out. There should be moments of suspense, especially during close fights, and moments of triumph,
+possibly after said fights, or after defeating very powerful waves of enemies. Losing adventurers, especially ones the player was invested in,
+should evoke a sense of loss.
+
+% \section{Changes from Original}
+
+
+
+\section{Works Used}
+
+% \subsection{Concepts}
+
+\subsection{Code}
+
+Like Assignment 2, the game features many script assets originally made for \textit{Nightscape},
+which is still not released publicly. This includes camera functionality, object selection, as well as
+random name generation. Many of the names themselves include segments generated from
+\href{https://www.fantasynamegenerators.com/}{Fantasy Name Generators}.
+
+This game also builds on \textit{The Starlight Rebellion}'s version of the audio player.
+
+The game also uses the \href{https://arongranberg.com/astar/}{A* Pathfinding Project} as its pathfinding algorithm,
+which uses the \href{https://unity3d.com/legal/as_terms}{Standard Unity Asset Store EULA}.
+
+\subsection{Art}
+
+\textbf{\textit{Dungeon Crawl Stone Soup}}
+\begin{itemize}
+    \item The game uses main and supplementary tilesets from \textit{Dungeon Crawl Stone Soup}, hosted \href{https://opengameart.org/content/dungeon-crawl-32x32-tiles}{here}
+        and \href{https://opengameart.org/content/dungeon-crawl-32x32-tiles-supplemental}{here}, respectively.
+    \item These assets are in the public domain, under the \href{https://creativecommons.org/publicdomain/zero/1.0/}{CC0 1.0} license.
+\end{itemize}
+
+\textbf{RPG Worlds Caves}
+\begin{itemize}
+    \item The game uses Szadi's RPG Worlds Caves tileset, hosted on the \href{https://assetstore.unity.com/packages/2d/environments/rpg-worlds-caves-167274}{Unity asset store}.
+    \item These assets are licensed under the \href{https://unity3d.com/legal/as_terms}{Standard Unity Asset Store EULA}.
+\end{itemize}
+
+\textbf{Rogue Fantasy Castle}
+\begin{itemize}
+    \item The game uses Szadi's Rogue Fantasy Castle tileset, hosted on the \href{https://assetstore.unity.com/packages/2d/environments/rogue-fantasy-castle-164725}{Unity asset store}.
+    \item These assets are licensed under the \href{https://unity3d.com/legal/as_terms}{Standard Unity Asset Store EULA}.
+\end{itemize}
+
+% \pagebreak
+
+% \subsection{Fonts}
+
+% \textbf{Nova Square}
+% \begin{itemize}
+%     \item Licensed under OFL
+%     \item Sourced from \href{https://fonts.google.com/specimen/Nova+Square}{Google Fonts}
+% \end{itemize}
+
+% \textbf{Spartan}
+% \begin{itemize}
+%     \item Licensed under OFL
+%     \item Sourced from \href{https://fonts.google.com/specimen/Spartan}{Google Fonts}
+% \end{itemize}
+
+% \subsection{Music}
+
+% Auroras of Saturn by MusicLFiles\\
+% Link: \url{https://filmmusic.io/song/6782-auroras-of-saturn}\\
+% License: \url{https://filmmusic.io/standard-license}
+
+% Dawn by Alexander Nakarada\\
+% Link: \url{https://filmmusic.io/song/4867-dawn}\\
+% License: \url{https://filmmusic.io/standard-license}
+
+% Horizon Flare by Alexander Nakarada\\
+% Link: \url{https://filmmusic.io/song/4837-horizon-flare}\\
+% License: \url{https://filmmusic.io/standard-license}
+
+% Dungeon Crawl Stone Soup assets, Szadi RPG Cave and Rogue Castle.
+
+\end{document}

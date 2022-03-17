@@ -1,0 +1,11 @@
+{
+  "races": [
+    {
+      "name": "Gremlin",
+      "baseHealth": 50,
+      "baseMana": 100,
+      "basePhysicalResist": 0,
+      "baseMagicalResist": 1
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "classes": [
+    {
+      "name": "Test Enemy Class",
+      "levelUpEXP": 100,
+      "levelUpEXPMultiplier": 1.5,
+      "iconPath": "Third-Party/unarmed_combat",
+      "healthPerLevel": 5,
+      "manaPerLevel": 5,
+      "potentialSkills": [
+        {
+          "level": 1,
+          "skill": {
+            "name": "Test Skill",
+            "desc": "A skill for testing.",
+            "iconPath": "Third-Party/unarmed_combat",
+            "newAttacks": [],
+            "healthBonus": 100,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        }
+      ],
+      "baseAttack": {
+        "name": "Attack",
+        "rangeBonus": 0,
+        "damageMultiplier": 1,
+        "isMagical": false,
+        "cooldown": 2.5,
+        "duration": 0.1,
+        "projectileSpritePath": "Third-Party/unarmed_combat",
+        "projectileSize": 1,
+        "projectileSpeed": 1
+      },
+      "allowedArmour": [],
+      "allowedWeapons": []
+    }
+  ]
+}
