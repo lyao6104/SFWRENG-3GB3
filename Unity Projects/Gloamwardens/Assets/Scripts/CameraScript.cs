@@ -53,7 +53,7 @@ public class CameraScript : MonoBehaviour
 		actualSpeed = speed * speedMult;
 		Vector3 boundExtents = camBounds.extents;
 		Vector3 deltaPos = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * actualSpeed;
-		// Debug.Log(deltaPos);
+		Debug.Log(deltaPos);
 		if (Mathf.Abs(transform.position.x + deltaPos.x - camBounds.center.x) > boundExtents.x)
 		{
 			deltaPos.x = 0;
