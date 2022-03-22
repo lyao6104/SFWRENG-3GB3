@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - CMVCam
+  - Enemy
+  - Adventurer
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
   - 

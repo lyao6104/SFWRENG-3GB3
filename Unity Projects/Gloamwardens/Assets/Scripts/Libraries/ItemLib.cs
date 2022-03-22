@@ -45,7 +45,8 @@ namespace ItemLib
 	public class Weapon : Equipment
 	{
 		public WeaponClass type;
-		public int baseDamage, baseSpeed, baseRange;
+		public int baseDamage, baseSpeed;
+		public float baseRange;
 		public int manaCost;
 		public bool isMagical, isTaunting;
 	}
@@ -82,10 +83,10 @@ namespace ItemLib
 			return validWeapons[Random.Range(0, validWeapons.Count)];
 		}
 
-		public static Weapon GetWeapon(WeaponClass type, int minRarity = 0, int maxRarity = 2)
+		public static Weapon GetWeapon(WeaponClass[] types, int minRarity = 0, int maxRarity = 2)
 		{
 			List<Weapon> validWeapons = loadedWeapons.Values.ToList()
-				.FindAll(weapon => minRarity <= weapon.rarity && weapon.rarity <= maxRarity && weapon.type == type);
+				.FindAll(weapon => minRarity <= weapon.rarity && weapon.rarity <= maxRarity && types.Contains(weapon.type));
 			return validWeapons[Random.Range(0, validWeapons.Count)];
 		}
 
@@ -96,7 +97,7 @@ namespace ItemLib
 			return validArmour[Random.Range(0, validArmour.Count)];
 		}
 
-		public static Armour GetArmour(ArmourClass type, EquipmentSlot slot, int minRarity = 0, int maxRarity = 2)
+		public static Armour GetArmour(ArmourClass[] types, EquipmentSlot slot, int minRarity = 0, int maxRarity = 2)
 		{
 			if (slot == EquipmentSlot.Weapon)
 			{
@@ -106,7 +107,7 @@ namespace ItemLib
 
 			List<Armour> validArmour = loadedArmour.Values.ToList()
 				.FindAll(armour => minRarity <= armour.rarity && armour.rarity <= maxRarity &&
-					armour.type == type && armour.slot == slot);
+					types.Contains(armour.type) && armour.slot == slot);
 			return validArmour[Random.Range(0, validArmour.Count)];
 		}
 
@@ -125,17 +126,13 @@ namespace ItemLib
 
 		public static EquipmentSlot StringToES(string s)
 		{
-			switch (s.ToLower())
+			return s.ToLower() switch
 			{
-				case "weapon":
-					return EquipmentSlot.Weapon;
-				case "torso":
-					return EquipmentSlot.Torso;
-				case "legs":
-					return EquipmentSlot.Legs;
-				default:
-					throw new UnityException("Cannot convert string to equipment slot.");
-			}
+				"weapon" => EquipmentSlot.Weapon,
+				"torso" => EquipmentSlot.Torso,
+				"legs" => EquipmentSlot.Legs,
+				_ => throw new UnityException("Cannot convert string to equipment slot."),
+			};
 		}
 
 		public static ArmourClass StringToAC(string s)
@@ -155,27 +152,18 @@ namespace ItemLib
 
 		public static WeaponClass StringToWC(string s)
 		{
-			switch (s.ToLower())
+			return s.ToLower() switch
 			{
-				case "lightstaff":
-					return WeaponClass.LightStaff;
-				case "darkstaff":
-					return WeaponClass.DarkStaff;
-				case "bow":
-					return WeaponClass.Bow;
-				case "crossbow":
-					return WeaponClass.Crossbow;
-				case "swordandshield":
-					return WeaponClass.SwordAndShield;
-				case "hammerandshield":
-					return WeaponClass.HammerAndShield;
-				case "lightmelee":
-					return WeaponClass.LightMelee;
-				case "heavymelee":
-					return WeaponClass.HeavyMelee;
-				default:
-					throw new UnityException("Cannot convert string to weapon class.");
-			}
+				"lightstaff" => WeaponClass.LightStaff,
+				"darkstaff" => WeaponClass.DarkStaff,
+				"bow" => WeaponClass.Bow,
+				"crossbow" => WeaponClass.Crossbow,
+				"swordandshield" => WeaponClass.SwordAndShield,
+				"hammerandshield" => WeaponClass.HammerAndShield,
+				"lightmelee" => WeaponClass.LightMelee,
+				"heavymelee" => WeaponClass.HeavyMelee,
+				_ => throw new UnityException("Cannot convert string to weapon class."),
+			};
 		}
 	}
 }

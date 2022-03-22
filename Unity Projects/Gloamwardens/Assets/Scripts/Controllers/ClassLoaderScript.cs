@@ -13,6 +13,7 @@ public class ClassLoaderScript : MonoBehaviour
 		public string name;
 		public int rangeBonus;
 		public float damageMultiplier;
+		public float manaCostMultiplier;
 		public bool isMagical;
 		public float cooldown, duration;
 
@@ -27,6 +28,7 @@ public class ClassLoaderScript : MonoBehaviour
 				name = name,
 				rangeBonus = rangeBonus,
 				damageMultiplier = damageMultiplier,
+				manaCostMultiplier = manaCostMultiplier,
 				cooldown = cooldown,
 				duration = duration,
 				isMagical = isMagical,

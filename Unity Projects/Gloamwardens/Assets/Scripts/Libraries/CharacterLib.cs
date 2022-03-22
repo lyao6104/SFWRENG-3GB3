@@ -8,6 +8,9 @@ using NamesLib;
 namespace CharacterLib
 {
 	[System.Serializable]
+	public enum TargetingCriteria { Closest, MostThreat, MostHealthy, LeastHealthy };
+
+	[System.Serializable]
 	public class Character
 	{
 		public string name;
@@ -55,9 +58,9 @@ namespace CharacterLib
 			combatClass = ClassUtil.GetPlayableClass();
 		}
 
-		public void LevelUp()
+		public void LevelUp(bool force = false)
 		{
-			if (!combatClass.LevelUp())
+			if (!combatClass.LevelUp(force))
 			{
 				return;
 			}
@@ -75,6 +78,30 @@ namespace CharacterLib
 			spr.sprite = bodySprite;
 
 			return spawnedChar;
+		}
+
+		// Currently just returns weapon range.
+		public float GetCharacterRange()
+		{
+			return weapon.baseRange;
+		}
+
+		// Currently just returns weapon damage.
+		public int GetCharacterDamage()
+		{
+			return weapon.baseDamage;
+		}
+
+		public int GetCharacterPhysicalResistance()
+		{
+			int skillResistance = combatClass.unlockedSkills.Aggregate(0, (a, b) => a + b.physRBonus);
+			return basePhysResistance + torso.physicalArmour + legs.physicalArmour + skillResistance;
+		}
+
+		public int GetCharacterMagicalResistance()
+		{
+			int skillResistance = combatClass.unlockedSkills.Aggregate(0, (a, b) => a + b.magiRBonus);
+			return baseMagiResistance + torso.magicalArmour + legs.magicalArmour + skillResistance;
 		}
 	}
 
@@ -98,21 +125,22 @@ namespace CharacterLib
 		public List<ArmourClass> allowedArmour = new List<ArmourClass>();
 		public List<WeaponClass> allowedWeapons = new List<WeaponClass>();
 
-		public bool LevelUp()
+		public bool LevelUp(bool force = false)
 		{
-			if (curEXP < levelUpEXP)
+			if (curEXP < levelUpEXP && !force)
 			{
 				Debug.LogWarning("Attempted to level up without required EXP.");
 				return false;
 			}
 
-			curEXP = 0;
+			curEXP = Mathf.Max(0, curEXP - levelUpEXP);
 			levelUpEXP = Mathf.RoundToInt(levelUpEXP * levelUpEXPMultiplier);
 			level++;
 			freeSkillPoints++;
 			return true;
 		}
 
+		// Skill point management should be done elsewhere.
 		public bool UnlockSkill(int skillLevel, string skillName)
 		{
 			if (level < skillLevel || skillName == "")
@@ -134,8 +162,40 @@ namespace CharacterLib
 			else
 			{
 				unlockedSkills.Add(toUnlock);
+				attacks.AddRange(toUnlock.newAttacks);
 				return true;
 			}
+		}
+
+		// Unlocks all skills for the current level.
+		// Mainly used by enemies.
+		public void UnlockCurrentSkills()
+		{
+			for (int i = 0; i < potentialSkills[level - 1].Count; i++)
+			{
+				UnlockSkill(level, potentialSkills[level - 1][i].name);
+			}
+		}
+
+		public CombatClass GetCopy()
+		{
+			return new CombatClass()
+			{
+				name = name,
+				level = level,
+				curEXP = curEXP,
+				levelUpEXP = levelUpEXP,
+				levelUpEXPMultiplier = levelUpEXPMultiplier,
+				icon = icon,
+				healthIncPerLevel = healthIncPerLevel,
+				manaIncPerLevel = manaIncPerLevel,
+				freeSkillPoints = freeSkillPoints,
+				unlockedSkills = new List<CombatSkill>(unlockedSkills),
+				potentialSkills = potentialSkills,
+				attacks = attacks.Select(attack => attack.GetCopy()).ToList(),
+				allowedArmour = allowedArmour,
+				allowedWeapons = allowedWeapons
+			};
 		}
 	}
 
@@ -156,16 +216,53 @@ namespace CharacterLib
 	public class Attack
 	{
 		public string name;
-		public int rangeBonus;
+		public float rangeBonus;
 		public float damageMultiplier = 1;
+		public float manaCostMultiplier = 1;
 		public bool isMagical = false;
 		// Cooldown is how long before THIS attack is usable again,
 		// duration is how long before OTHER attacks can be made.
 		public float cooldown, duration;
+		private float lastUsed = int.MinValue;
 
 		public Sprite projectileSprite;
 		public float projectileSize;
 		public float projectileSpeed;
+
+		public bool CanAttack()
+		{
+			//Debug.LogFormat("Last used: {0}, Cooldown: {1}", lastUsed, cooldown);
+			return Time.time - lastUsed >= cooldown;
+		}
+
+		/// <summary>
+		/// Assuming this attack isn't on cooldown, updates cooldown values
+		/// to "signal" that the attack has been made.
+		/// </summary>
+		/// <returns>Time at which further attacks can be made after this attack's duration elapses.</returns>
+		public float SignalAttack()
+		{
+			lastUsed = Time.time;
+			return Time.time + duration;
+		}
+
+		public Attack GetCopy()
+		{
+			return new Attack()
+			{
+				name = name,
+				rangeBonus = rangeBonus,
+				damageMultiplier = damageMultiplier,
+				manaCostMultiplier = manaCostMultiplier,
+				isMagical = isMagical,
+				cooldown = cooldown,
+				duration = duration,
+				lastUsed = int.MinValue,
+				projectileSprite = projectileSprite,
+				projectileSize = projectileSize,
+				projectileSpeed = projectileSpeed
+			};
+		}
 	}
 
 	[System.Serializable]
@@ -200,7 +297,19 @@ namespace CharacterLib
 
 		public static CombatClass GetPlayableClass()
 		{
-			return playableClasses.Values.ToArray()[Random.Range(0, playableClasses.Count)];
+			return playableClasses.Values.ToArray()[Random.Range(0, playableClasses.Count)].GetCopy();
+		}
+
+		public static CombatClass GetEnemyClass(string name)
+		{
+			if (enemyClasses.ContainsKey(name))
+			{
+				return enemyClasses[name].GetCopy();
+			}
+			else
+			{
+				return null;
+			}
 		}
 	}
 
@@ -243,6 +352,39 @@ namespace CharacterLib
 		public static Race GetPlayableRace()
 		{
 			return playableRaces.Values.ToArray()[Random.Range(0, playableRaces.Count)];
+		}
+
+		public static Race GetEnemyRace()
+		{
+			return enemyRaces.Values.ToArray()[Random.Range(0, enemyRaces.Count)];
+		}
+
+		public static Race GetEnemyRace(string name)
+		{
+			if (enemyRaces.ContainsKey(name))
+			{
+				return enemyRaces[name];
+			}
+			else
+			{
+				return null;
+			}
+		}
+	}
+
+	public static class CharUtil
+	{
+		public static Character GetPlayableCharacter()
+		{
+			Character newChar = new Character
+			{
+				hairSprite = RaceUtil.GetHair()
+			};
+			newChar.weapon = ItemUtil.GetWeapon(newChar.combatClass.allowedWeapons.ToArray(), 0, 0);
+			newChar.torso = ItemUtil.GetArmour(newChar.combatClass.allowedArmour.ToArray(), EquipmentSlot.Torso, 0, 0);
+			newChar.legs = ItemUtil.GetArmour(newChar.combatClass.allowedArmour.ToArray(), EquipmentSlot.Legs, 0, 0);
+
+			return newChar;
 		}
 	}
 }

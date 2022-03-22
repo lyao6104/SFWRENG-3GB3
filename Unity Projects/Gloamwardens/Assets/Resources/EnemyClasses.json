@@ -1,21 +1,60 @@
 {
   "classes": [
     {
-      "name": "Test Enemy Class",
+      "name": "Gremlin Class",
       "levelUpEXP": 100,
       "levelUpEXPMultiplier": 1.5,
-      "iconPath": "Third-Party/unarmed_combat",
+      "iconPath": "",
       "healthPerLevel": 5,
-      "manaPerLevel": 5,
+      "manaPerLevel": 0,
       "potentialSkills": [
         {
-          "level": 1,
+          "level": 5,
           "skill": {
-            "name": "Test Skill",
-            "desc": "A skill for testing.",
-            "iconPath": "Third-Party/unarmed_combat",
-            "newAttacks": [],
-            "healthBonus": 100,
+            "name": "Bite",
+            "desc": "A gremlin's bite can be devastating for victims.",
+            "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+            "newAttacks": [
+              {
+                "name": "Bite",
+                "rangeBonus": 0,
+                "damageMultiplier": 1.5,
+                "manaCostMultiplier": 1,
+                "isMagical": false,
+                "cooldown": 5,
+                "duration": 1,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/drain_red_0",
+                "projectileSize": 0.5,
+                "projectileSpeed": 50
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 10,
+          "skill": {
+            "name": "Rapid Strikes",
+            "desc": "Skilled gremlins can deliver swift follow-up attacks.",
+            "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+            "newAttacks": [
+              {
+                "name": "Claw",
+                "rangeBonus": 0,
+                "damageMultiplier": 1,
+                "manaCostMultiplier": 1,
+                "isMagical": false,
+                "cooldown": 2.5,
+                "duration": 0.5,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/drain_0_new",
+                "projectileSize": 0.5,
+                "projectileSpeed": 50
+              }
+            ],
+            "healthBonus": 0,
             "manaBonus": 0,
             "physicalResistanceBonus": 0,
             "magicResistanceBonus": 0
@@ -23,18 +62,19 @@
         }
       ],
       "baseAttack": {
-        "name": "Attack",
+        "name": "Claw",
         "rangeBonus": 0,
         "damageMultiplier": 1,
+        "manaCostMultiplier": 1,
         "isMagical": false,
         "cooldown": 2.5,
-        "duration": 0.1,
-        "projectileSpritePath": "Third-Party/unarmed_combat",
-        "projectileSize": 1,
-        "projectileSpeed": 1
+        "duration": 0.5,
+        "projectileSpritePath": "Third-Party/Sprites/Effects/drain_0_new",
+        "projectileSize": 0.5,
+        "projectileSpeed": 50
       },
       "allowedArmour": [],
-      "allowedWeapons": []
+      "allowedWeapons": ["LightMelee"]
     }
   ]
 }

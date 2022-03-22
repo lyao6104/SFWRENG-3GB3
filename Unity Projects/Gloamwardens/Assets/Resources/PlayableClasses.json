@@ -26,15 +26,16 @@
         "name": "Attack",
         "rangeBonus": 0,
         "damageMultiplier": 1,
+        "manaCostMultiplier": 1,
         "isMagical": false,
         "cooldown": 2.5,
         "duration": 0.1,
         "projectileSpritePath": "Third-Party/Sprites/Icons/unarmed_combat",
         "projectileSize": 1,
-        "projectileSpeed": 1,
-        "allowedArmour": ["LightArmour"],
-        "allowedWeapons": ["LightStaff", "DarkStaff"]
-      }
+        "projectileSpeed": 1
+      },
+      "allowedArmour": ["LightArmour"],
+      "allowedWeapons": ["LightStaff", "DarkStaff"]
     }
   ]
 }

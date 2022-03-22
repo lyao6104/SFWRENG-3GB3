@@ -17,7 +17,8 @@ public class ItemLoaderScript : MonoBehaviour
 		public string iconPath, spritePath;
 
 		public string type;
-		public int baseDamage, baseSpeed, baseRange;
+		public int baseDamage, baseSpeed;
+		public float baseRange;
 		public int manaCost;
 		public bool isMagical, isTaunting;
 
