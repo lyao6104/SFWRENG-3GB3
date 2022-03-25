@@ -54,6 +54,13 @@ public class PartyScript : MonoBehaviour
 		return characters;
 	}
 
+	public AdventurerScript[] GetAdventurers()
+	{
+		AdventurerScript[] toReturn = new AdventurerScript[adventurers.Length];
+		adventurerScripts.CopyTo(toReturn, 0);
+		return toReturn;
+	}
+
 	public AdventurerScript[] GetPartyMembers(AdventurerScript member)
 	{
 		AdventurerScript[] members = new AdventurerScript[3];

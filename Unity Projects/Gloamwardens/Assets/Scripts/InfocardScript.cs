@@ -7,8 +7,8 @@ using TMPro;
 
 public class InfocardScript : MonoBehaviour
 {
-	public TMP_Text nameLabel, healthLabel, manaLabel, levelLabel;
-	public GameObject skillsButton;
+	public TMP_Text nameLabel, healthLabel, manaLabel, levelLabel, curTargetingLabel;
+	public GameObject skillsButton, targetingPrefs;
 
 	private GameControllerScript gc;
 	private Character selected;
@@ -26,6 +26,7 @@ public class InfocardScript : MonoBehaviour
 		if (!gc.IsPlayerControlled(this.selected))
 		{
 			skillsButton.SetActive(false);
+			targetingPrefs.SetActive(false);
 		}
 
 		initialized = true;
@@ -36,6 +37,40 @@ public class InfocardScript : MonoBehaviour
 		if (gc.ToggleSkillView())
 		{
 			gc.skillPanel.GetComponent<SkillViewScript>().Init(selected);
+		}
+	}
+
+	public void OnTargetButtonClicked(int criterion)
+	{
+		if (!gc.IsPlayerControlled(selected))
+		{
+			return;
+		}
+
+		AdventurerScript adventurer = gc.GetAssociatedAdventurer(selected);
+		if (adventurer != null)
+		{
+			//Debug.Log(adventurer.name);
+			//Debug.Log(((TargetingCriteria)criterion).ToString());
+			// Enums don't show up in the inspector so this will have to do.
+			adventurer.PrioritizeTarget((TargetingCriteria)criterion);
+			string targetingCriterion;
+			switch((TargetingCriteria)criterion)
+			{
+				case TargetingCriteria.Closest:
+					targetingCriterion = "Closest";
+					break;
+				case TargetingCriteria.MostHealthy:
+					targetingCriterion = "Most Healthy";
+					break;
+				case TargetingCriteria.LeastHealthy:
+					targetingCriterion = "Least Healthy";
+					break;
+				default:
+					targetingCriterion = "Default";
+					break;
+			}
+			curTargetingLabel.text = string.Format("Current: {0}", targetingCriterion);
 		}
 	}
 

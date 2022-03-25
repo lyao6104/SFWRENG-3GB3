@@ -22,6 +22,7 @@ public class AdventurerScript : MonoBehaviour
 	private Rigidbody2D rb;
 	private Transform targetTransform;
 	private List<EnemyScript> potentialTargets = new List<EnemyScript>();
+	private const float threatDecayInterval = 0.5f;
 
 	private const float pathfindingInterval = 2.5f;
 	private const float targetingInterval = 2.5f;
@@ -249,6 +250,8 @@ public class AdventurerScript : MonoBehaviour
 			// Damage is rounded down.
 			int damage = (int)(characterData.GetCharacterDamage() * potentialAttack.damageMultiplier);
 			bool isMelee = characterData.weapon.baseRange + potentialAttack.rangeBonus < 2;
+			// Threat generated is damage, plus 2 times damage if isTaunting
+			threat += damage * (characterData.weapon.isTaunting ? 3 : 1);
 
 			GameObject newProjectile = Instantiate(gc.projectilePrefab, transform.position, Quaternion.identity);
 			newProjectile.GetComponent<ProjectileScript>()
@@ -292,6 +295,11 @@ public class AdventurerScript : MonoBehaviour
 	private void RegenMana()
 	{
 		characterData.mana = Mathf.Min(characterData.maxMana, characterData.mana + 1);
+	}
+
+	private void DecayThreat()
+	{
+		threat = Mathf.Max(0, threat - 1);
 	}
 
 	public void GainEXP(int amount)
@@ -372,5 +380,6 @@ public class AdventurerScript : MonoBehaviour
 		InvokeRepeating(nameof(FindPath), 0, pathfindingInterval);
 		InvokeRepeating(nameof(RegenHealth), 0, healthRegenTime);
 		InvokeRepeating(nameof(RegenMana), 0, manaRegenTime);
+		InvokeRepeating(nameof(DecayThreat), 0, threatDecayInterval);
 	}
 }

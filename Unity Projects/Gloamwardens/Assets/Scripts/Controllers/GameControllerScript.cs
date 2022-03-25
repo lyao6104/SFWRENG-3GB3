@@ -112,6 +112,22 @@ public class GameControllerScript : MonoBehaviour
 		return false;
 	}
 
+	public AdventurerScript GetAssociatedAdventurer(Character character)
+	{
+		for (int i = 0; i < parties.Count; i++)
+		{
+			AdventurerScript[] members = parties[i].GetAdventurers();
+			for (int j = 0; j < members.Length; j++)
+			{
+				if (members[j].characterData == character)
+				{
+					return members[i];
+				}
+			}
+		}
+		return null;
+	}
+
 	public void TogglePartyView()
 	{
 		partyViewPanel.SetActive(!partyViewPanel.activeSelf);
