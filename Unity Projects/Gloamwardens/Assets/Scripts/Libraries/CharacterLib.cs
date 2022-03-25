@@ -125,6 +125,15 @@ namespace CharacterLib
 		public List<ArmourClass> allowedArmour = new List<ArmourClass>();
 		public List<WeaponClass> allowedWeapons = new List<WeaponClass>();
 
+		public void GainEXP(int amount)
+		{
+			curEXP += amount;
+			if (curEXP > levelUpEXP)
+			{
+				LevelUp();
+			}
+		}
+
 		public bool LevelUp(bool force = false)
 		{
 			if (curEXP < levelUpEXP && !force)

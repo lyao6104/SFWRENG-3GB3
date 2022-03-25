@@ -294,6 +294,11 @@ public class AdventurerScript : MonoBehaviour
 		characterData.mana = Mathf.Min(characterData.maxMana, characterData.mana + 1);
 	}
 
+	public void GainEXP(int amount)
+	{
+		characterData.combatClass.GainEXP(amount);
+	}
+
 	private void Kill()
 	{
 		// Remove from parties, etc.

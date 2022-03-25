@@ -8,10 +8,15 @@ using CharacterLib;
 
 public class SelectorScript : MonoBehaviour
 {
-	public LayerMask raycastLayers;
+	public LayerMask raycastLayers, pathObstacleLayers;
 	public GameObject currentlySelected;
 	public GameObject selectionInfocard;
 	public InputAction mouseClick, cancel;
+
+	public GameObject deployIndicatorPrefab;
+
+	private PartyScript toDeploy;
+	private GameObject deployIndicator;
 
 	private void OnEnable()
 	{
@@ -47,7 +52,17 @@ public class SelectorScript : MonoBehaviour
 		//}
 		if (!EventSystem.current.IsPointerOverGameObject())
 		{
-			if (mouseHit.collider != null && mouseHit.collider.gameObject != currentlySelected)
+			if (toDeploy != null)
+			{
+				mouseHit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(mousePos), Vector2.zero, Mathf.Infinity, pathObstacleLayers);
+				if (mouseHit.collider == null)
+				{
+					toDeploy.Deploy(Camera.main.ScreenToWorldPoint(mousePos));
+					toDeploy = null;
+					Destroy(deployIndicator);
+				}
+			}
+			else if (mouseHit.collider != null && mouseHit.collider.gameObject != currentlySelected)
 			{
 				Deselect();
 				Select(mouseHit.collider.gameObject);
@@ -66,6 +81,12 @@ public class SelectorScript : MonoBehaviour
 		Deselect();
 	}
 
+	public void StartDeploying(PartyScript party)
+	{
+		toDeploy = party;
+		deployIndicator = Instantiate(deployIndicatorPrefab);
+	}
+
 	public void Deselect()
 	{
 		if (currentlySelected != null)
@@ -73,6 +94,7 @@ public class SelectorScript : MonoBehaviour
 			currentlySelected = null;
 		}
 		selectionInfocard.SetActive(false);
+		GameControllerScript.GetController().skillPanel.SetActive(false);
 	}
 
 	private void Select(GameObject toSelect)

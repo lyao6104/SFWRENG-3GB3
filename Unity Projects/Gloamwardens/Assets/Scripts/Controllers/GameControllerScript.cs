@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using CharacterLib;
 using TMPro;
 
@@ -20,7 +21,9 @@ public class GameControllerScript : MonoBehaviour
 	public List<Character> availableAdventurers;
 	private const int advPoolCapacity = 2 * PartyScript.partySize;
 
-	public GameObject partyCreationPanel;
+	public GameObject mainUI, gameOverPanel;
+	public GameObject partyCreationPanel, partyViewPanel;
+	public GameObject skillPanel;
 
 	private void Start()
 	{
@@ -70,23 +73,59 @@ public class GameControllerScript : MonoBehaviour
 		remainingLives--;
 		if (remainingLives < 1)
 		{
-			// Game over
+			mainUI.SetActive(false);
+			gameOverPanel.SetActive(true);
 		}
 	}
 
 	public void CreateParty()
 	{
 		partyCreationPanel.SetActive(true);
+		partyViewPanel.SetActive(false);
+	}
+
+	public void DeployParty(PartyScript party)
+	{
+		if (!parties.Contains(party) || party.IsDeployed)
+		{
+			return;
+		}
+
+		partyCreationPanel.SetActive(false);
+		partyViewPanel.SetActive(false);
+		GetComponent<SelectorScript>().StartDeploying(party);
+	}
+
+	public bool IsPlayerControlled(Character character)
+	{
+		for (int i = 0; i < parties.Count; i++)
+		{
+			Character[] members = parties[i].GetCharacters();
+			for (int j = 0; j < members.Length; j++)
+			{
+				if (members[j] == character)
+				{
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	public void TogglePartyView()
 	{
+		partyViewPanel.SetActive(!partyViewPanel.activeSelf);
+	}
 
+	public bool ToggleSkillView()
+	{
+		skillPanel.SetActive(!skillPanel.activeSelf);
+		return skillPanel.activeSelf;
 	}
 
 	public void ToMainMenu()
 	{
-
+		SceneManager.LoadScene("MenuScene");
 	}
 
 	public static GameControllerScript GetController()

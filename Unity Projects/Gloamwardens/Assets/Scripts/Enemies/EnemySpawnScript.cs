@@ -8,7 +8,8 @@ public class EnemySpawnScript : MonoBehaviour
 	public class EnemyWaveEntry
 	{
 		public EnemyArchetypeSO archetype;
-		public int count;
+		public int count, bonusLevels;
+		public float postSpawnDelay;
 	}
 
 	[System.Serializable]
@@ -29,16 +30,21 @@ public class EnemySpawnScript : MonoBehaviour
 
 	public void SpawnWave()
 	{
-		EnemyWave nextWave = waves[0];
-		waves.RemoveAt(0);
+		StartCoroutine(WaveRoutine(waves[0]));
+	}
 
-		foreach (EnemyWaveEntry enemyType in nextWave.enemies)
+	private IEnumerator WaveRoutine(EnemyWave wave)
+	{
+		foreach (EnemyWaveEntry enemyType in wave.enemies)
 		{
 			for (int i = 0; i < enemyType.count; i++)
 			{
 				EnemyScript newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<EnemyScript>();
-				newEnemy.Spawn(enemyType.archetype);
+				newEnemy.Spawn(enemyType.archetype, enemyType.bonusLevels);
 			}
+
+			yield return new WaitForSeconds(enemyType.postSpawnDelay);
 		}
+		waves.Remove(wave);
 	}
 }

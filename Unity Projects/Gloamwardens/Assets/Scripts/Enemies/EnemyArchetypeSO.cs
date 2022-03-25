@@ -11,6 +11,7 @@ public class EnemyArchetypeSO : ScriptableObject
 	public string race;
 	public string className;
 	public int level;
+	public int killEXPPerLevel;
 	public Weapon weapon;
 
 	// Actually used by enemy script
@@ -19,14 +20,14 @@ public class EnemyArchetypeSO : ScriptableObject
 	public float maxRarityPerLevel = 0.2f;
 	public float speed;
 
-	public Character Build()
+	public Character Build(int bonusLevels)
 	{
 		Character newEnemy = new Character(RaceUtil.GetEnemyRace(race))
 		{
 			combatClass = ClassUtil.GetEnemyClass(className),
 			weapon = weapon
 		};
-		for (int i = newEnemy.combatClass.level; i < level; i++)
+		for (int i = newEnemy.combatClass.level; i < level + bonusLevels; i++)
 		{
 			newEnemy.LevelUp(true);
 			newEnemy.combatClass.UnlockCurrentSkills();

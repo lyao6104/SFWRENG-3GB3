@@ -47,6 +47,13 @@ public class PartyScript : MonoBehaviour
 		}
 	}
 
+	public Character[] GetCharacters()
+	{
+		Character[] characters = new Character[adventurers.Length];
+		adventurers.CopyTo(characters, 0);
+		return characters;
+	}
+
 	public AdventurerScript[] GetPartyMembers(AdventurerScript member)
 	{
 		AdventurerScript[] members = new AdventurerScript[3];
@@ -76,6 +83,16 @@ public class PartyScript : MonoBehaviour
 				adventurerScripts[i] = null;
 			}
 		}
+
+		for (int i = 0; i < adventurers.Length; i++)
+		{
+			if (adventurers[i] != null)
+			{
+				return;
+			}
+		}
+		GameControllerScript.GetController().parties.Remove(this);
+		Destroy(gameObject);
 	}
 
 	public void UpdateCharacterData(AdventurerScript adventurer)

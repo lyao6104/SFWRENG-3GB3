@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using CharacterLib;
@@ -9,17 +10,11 @@ public class PartyCreationScript : MonoBehaviour
 {
 	public List<Character> selectedAdventurers = new List<Character>(PartyScript.partySize);
 	public List<Button> slots = new List<Button>(PartyScript.partySize);
-	public Button partyCreationButton, cancelButton;
 	public GameObject selectAdventurerPrefab;
 	public Transform contentTransform;
 
 	private GameControllerScript gc;
 	private Character selectedAdventurer;
-
-	private void Start()
-	{
-		gc = GameControllerScript.GetController();
-	}
 
 	private void OnEnable()
 	{
@@ -52,6 +47,11 @@ public class PartyCreationScript : MonoBehaviour
 				}
 			});
 		}
+
+		for (int i = 0; i < selectedAdventurers.Count; i++)
+		{
+			selectedAdventurers[i] = null;
+		}
 	}
 
 	public void AssignToSlot(int index)
@@ -67,12 +67,22 @@ public class PartyCreationScript : MonoBehaviour
 
 	public void CreateParty()
 	{
+		// It's assumed that an empty name is a null character.
+		if (selectedAdventurers.Any(x => x == null || x.name == ""))
+		{
+			return;
+		}
+
 		GameObject partyGO = new GameObject("Adventurer Party");
 		PartyScript newParty = partyGO.AddComponent<PartyScript>();
 		for (int i = 0; i < selectedAdventurers.Count; i++)
 		{
 			newParty.AssignAdventurer(selectedAdventurers[i]);
 		}
+		CircleCollider2D collider = partyGO.AddComponent<CircleCollider2D>();
+		collider.isTrigger = true;
+		collider.radius = 2.5f;
+		partyGO.layer = LayerMask.NameToLayer("Party");
 		gc.parties.Add(newParty);
 		gc.availableAdventurers.RemoveAll(x => selectedAdventurers.Contains(x));
 		Cancel();
@@ -89,6 +99,7 @@ public class PartyCreationScript : MonoBehaviour
 		{
 			Destroy(potentialAdventurers[i].gameObject);
 		}
+		gc.TogglePartyView();
 		gameObject.SetActive(false);
 	}
 }

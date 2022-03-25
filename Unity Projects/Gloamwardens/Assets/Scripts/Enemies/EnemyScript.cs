@@ -29,7 +29,7 @@ public class EnemyScript : MonoBehaviour
 	{
 		gc = GameControllerScript.GetController();
 		rb = GetComponent<Rigidbody2D>();
-		seeker= GetComponent<Seeker>();
+		seeker = GetComponent<Seeker>();
 	}
 
 	private void FixedUpdate()
@@ -57,10 +57,12 @@ public class EnemyScript : MonoBehaviour
 		}
 	}
 
-	public void Spawn(EnemyArchetypeSO archetype)
+	public void Spawn(EnemyArchetypeSO archetype, int bonusLevels)
 	{
+		gc = GameControllerScript.GetController();
+
 		this.archetype = archetype;
-		characterData = archetype.Build();
+		characterData = archetype.Build(bonusLevels);
 
 		name = characterData.name;
 		GetComponent<SpriteRenderer>().sprite = characterData.bodySprite;
@@ -106,6 +108,7 @@ public class EnemyScript : MonoBehaviour
 		if (characterData.health <= 0)
 		{
 			// Drop loot, etc.
+			damager.GainEXP(archetype.killEXPPerLevel * characterData.combatClass.level);
 
 			Kill();
 		}

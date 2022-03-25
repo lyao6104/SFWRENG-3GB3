@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   race: Gremlin
   className: Gremlin Class
-  level: 5
+  level: 1
+  killEXPPerLevel: 10
   weapon:
     name: Gremlin Claws
     description: The claws of a gremlin.

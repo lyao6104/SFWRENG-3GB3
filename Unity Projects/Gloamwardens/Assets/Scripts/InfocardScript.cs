@@ -8,6 +8,7 @@ using TMPro;
 public class InfocardScript : MonoBehaviour
 {
 	public TMP_Text nameLabel, healthLabel, manaLabel, levelLabel;
+	public GameObject skillsButton;
 
 	private GameControllerScript gc;
 	private Character selected;
@@ -17,11 +18,25 @@ public class InfocardScript : MonoBehaviour
 	{
 		if (gc == null)
 		{
-			gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerScript>();
+			gc = GameControllerScript.GetController();
 		}
 		
 		this.selected = selected;
+
+		if (!gc.IsPlayerControlled(this.selected))
+		{
+			skillsButton.SetActive(false);
+		}
+
 		initialized = true;
+	}
+
+	public void OnSkillButtonClicked()
+	{
+		if (gc.ToggleSkillView())
+		{
+			gc.skillPanel.GetComponent<SkillViewScript>().Init(selected);
+		}
 	}
 
 	private void OnDisable()
@@ -42,5 +57,10 @@ public class InfocardScript : MonoBehaviour
 		manaLabel.text = string.Format("Mana: {0} / {1}", selected.mana, selected.maxMana);
 		levelLabel.text = string.Format("Level {0}: {1} / {2} exp", selected.combatClass.level,
 			selected.combatClass.curEXP, selected.combatClass.levelUpEXP);
+
+		if (selected.maxHealth < 1)
+		{
+			gameObject.SetActive(false);
+		}
 	}
 }
