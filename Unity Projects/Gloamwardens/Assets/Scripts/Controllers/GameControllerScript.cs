@@ -37,7 +37,7 @@ public class GameControllerScript : MonoBehaviour
 
 	public bool IsInCombat()
 	{
-		return enemyCount < 1;
+		return enemyCount > 0;
 	}
 
 	public void OnEnemySpawn()
@@ -48,9 +48,10 @@ public class GameControllerScript : MonoBehaviour
 	public void OnEnemyDeath()
 	{
 		enemyCount = Mathf.Max(0, enemyCount - 1);
-		if (enemyCount < 1)
+		if (!IsInCombat())
 		{
 			nextWaveButton.interactable = true;
+			GameObject.FindGameObjectWithTag("AudioController").GetComponent<AudioControllerScript>().PlayNextTrack();
 			for (int i = availableAdventurers.Count; i < advPoolCapacity; i++)
 			{
 				availableAdventurers.Add(CharUtil.GetPlayableCharacter());
@@ -66,6 +67,7 @@ public class GameControllerScript : MonoBehaviour
 		{
 			enemySpawn.SpawnWave();
 		}
+		GameObject.FindGameObjectWithTag("AudioController").GetComponent<AudioControllerScript>().PlayNextTrack();
 	}
 
 	public void LoseLife()

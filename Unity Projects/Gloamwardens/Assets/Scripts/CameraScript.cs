@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class CameraScript : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class CameraScript : MonoBehaviour
 		panDirection += keyboardDelta.normalized;
 		PanCamera(panDirection);
 
-		int deltaZoom = (int)inputProvider.GetAxisValue(2);
+		int deltaZoom = !EventSystem.current.IsPointerOverGameObject() ? (int)inputProvider.GetAxisValue(2) : 0;
 		virtualCamera.m_Lens.OrthographicSize -= deltaZoom * zoomSpeed * Time.deltaTime;
 		virtualCamera.m_Lens.OrthographicSize = Mathf.Clamp(virtualCamera.m_Lens.OrthographicSize, minZoom, maxZoom);
 		if (deltaZoom != 0)

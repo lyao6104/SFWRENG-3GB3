@@ -25,4 +25,18 @@ The project also uses the following 2D sprites and textures:
 
 ### Music
 
+    Dreamy Piano Fantasy  by Rafael Krux
+    Link: https://filmmusic.io/song/5635-dreamy-piano-fantasy-
+    License: https://filmmusic.io/standard-license
 
+    Electric Cellos  by Rafael Krux
+    Link: https://filmmusic.io/song/5636-electric-cellos-
+    License: https://filmmusic.io/standard-license
+
+    Land Of Magic  by Rafael Krux
+    Link: https://filmmusic.io/song/5679-land-of-magic-
+    License: https://filmmusic.io/standard-license
+
+    Midnight Magic  by Rafael Krux
+    Link: https://filmmusic.io/song/5426-midnight-magic-
+    License: https://filmmusic.io/standard-license
