@@ -16,12 +16,12 @@ The project also uses the following 2D sprites and textures:
 
 ### Fonts
 
-- Nova Square
+- Alegreya SC
   - Licensed under OFL
-  - Sourced from [Google Fonts](https://fonts.google.com/specimen/Nova+Square)
-- Spartan
+  - Sourced from [Google Fonts](https://fonts.google.com/specimen/Alegreya+SC)
+- IM Fell Double Pica SC
   - Licensed under OFL
-  - Sourced from [Google Fonts](https://fonts.google.com/specimen/Spartan)
+  - Sourced from [Google Fonts](https://fonts.google.com/specimen/IM+Fell+Double+Pica+SC)
 
 ### Music
 
