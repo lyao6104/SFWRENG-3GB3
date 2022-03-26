@@ -41,6 +41,7 @@ public class EnemySpawnScript : MonoBehaviour
 			{
 				EnemyScript newEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<EnemyScript>();
 				newEnemy.Spawn(enemyType.archetype, enemyType.bonusLevels);
+				yield return new WaitForSeconds(0.5f);
 			}
 
 			yield return new WaitForSeconds(enemyType.postSpawnDelay);

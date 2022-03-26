@@ -86,7 +86,7 @@ public class ClassLoaderScript : MonoBehaviour
 
 		public int healthPerLevel, manaPerLevel;
 		public List<PotentialSkillEntry> potentialSkills;
-		public AttackJSON baseAttack;
+		public List<AttackJSON> baseAttacks;
 		public List<string> allowedArmour;
 		public List<string> allowedWeapons;
 
@@ -124,7 +124,7 @@ public class ClassLoaderScript : MonoBehaviour
 				freeSkillPoints = 0,
 				unlockedSkills = new List<CombatSkill>(),
 				potentialSkills = builtSkills,
-				attacks = new List<Attack>() { baseAttack.Build() },
+				attacks = baseAttacks.Select(atk => atk.Build()).ToList(),
 				allowedArmour = allowedArmour.Select(s => ItemUtil.StringToAC(s)).ToList(),
 				allowedWeapons = allowedWeapons.Select(s => ItemUtil.StringToWC(s)).ToList()
 			};

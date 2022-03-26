@@ -45,6 +45,8 @@ public class PartyScript : MonoBehaviour
 			adventurerScripts[i].Clear();
 			adventurerScripts[i] = null;
 		}
+		// Just some arbitrarily far position so it doesn't interfere with deployment.
+		transform.position = new Vector3(1000, 1000);
 	}
 
 	public Character[] GetCharacters()
@@ -77,6 +79,10 @@ public class PartyScript : MonoBehaviour
 				members[i++] = adventurerScripts[j];
 			}
 		}
+		//foreach (AdventurerScript pMember in members)
+		//{
+		//	Debug.Log(member.name + ": " + pMember.name);
+		//}
 		return members;
 	}
 

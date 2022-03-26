@@ -10,25 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b940186c3f5422a43b55b6e1e04b3dde, type: 3}
-  m_Name: Gremlin
+  m_Name: Gnoll Bandit
   m_EditorClassIdentifier: 
-  race: Gremlin
-  className: Gremlin
+  race: Gnoll
+  className: Gnoll Bandit
   level: 1
-  killEXPPerLevel: 20
+  killEXPPerLevel: 25
   weapon:
-    name: Gremlin Claws
-    description: The claws of a gremlin.
+    name: Gnoll Dagger
+    description: 
     tags:
     - Weapon
     - Light Melee
-    - Monster
     slot: 0
     rarity: 0
     icon: {fileID: 0}
-    sprite: {fileID: 0}
+    sprite: {fileID: 21300000, guid: b0359b922ee7d674ba508031f3ae89b9, type: 3}
     type: 6
-    baseDamage: 10
+    baseDamage: 7
     baseSpeed: 1
     baseRange: 1
     manaCost: 0
@@ -37,4 +36,4 @@ MonoBehaviour:
   lootChance: 0.05
   minRarityPerLevel: 0.1
   maxRarityPerLevel: 0.2
-  speed: 40
+  speed: 30

@@ -6,6 +6,13 @@
       "baseMana": 100,
       "basePhysicalResist": 0,
       "baseMagicalResist": 1
+    },
+    {
+      "name": "Gnoll",
+      "baseHealth": 75,
+      "baseMana": 50,
+      "basePhysicalResist": 5,
+      "baseMagicalResist": 0
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "classes": [
     {
-      "name": "Gremlin Class",
+      "name": "Gremlin",
       "levelUpEXP": 100,
       "levelUpEXPMultiplier": 1.5,
       "iconPath": "",
@@ -61,18 +61,124 @@
           }
         }
       ],
-      "baseAttack": {
-        "name": "Claw",
-        "rangeBonus": 0,
-        "damageMultiplier": 1,
-        "manaCostMultiplier": 1,
-        "isMagical": false,
-        "cooldown": 2.5,
-        "duration": 0.5,
-        "projectileSpritePath": "Third-Party/Sprites/Effects/drain_0_new",
-        "projectileSize": 0.5,
-        "projectileSpeed": 50
-      },
+      "baseAttacks": [
+        {
+          "name": "Claw",
+          "rangeBonus": 0,
+          "damageMultiplier": 1,
+          "manaCostMultiplier": 1,
+          "isMagical": false,
+          "cooldown": 2.5,
+          "duration": 0.5,
+          "projectileSpritePath": "Third-Party/Sprites/Effects/drain_0_new",
+          "projectileSize": 0.5,
+          "projectileSpeed": 50
+        }
+      ],
+      "allowedArmour": [],
+      "allowedWeapons": ["LightMelee"]
+    },
+    {
+      "name": "Gnoll Archer",
+      "levelUpEXP": 100,
+      "levelUpEXPMultiplier": 1.5,
+      "iconPath": "",
+      "healthPerLevel": 7,
+      "manaPerLevel": 0,
+      "potentialSkills": [
+        {
+          "level": 5,
+          "skill": {
+            "name": "Venom Arrow",
+            "desc": "Arrows tipped with venom for use against particularly troublesome enemies.",
+            "iconPath": "Third-Party/Sprites/Icons/venom_bolt",
+            "newAttacks": [
+              {
+                "name": "Venom Arrow",
+                "rangeBonus": 0,
+                "damageMultiplier": 2.5,
+                "manaCostMultiplier": 1,
+                "isMagical": false,
+                "cooldown": 5,
+                "duration": 0.5,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/poison_arrow_0",
+                "projectileSize": 1,
+                "projectileSpeed": 150
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        }
+      ],
+      "baseAttacks": [
+        {
+          "name": "Rapid Shot",
+          "rangeBonus": 0,
+          "damageMultiplier": 1,
+          "manaCostMultiplier": 0,
+          "isMagical": false,
+          "cooldown": 0.75,
+          "duration": 0.5,
+          "projectileSpritePath": "Third-Party/Sprites/Effects/arrow0",
+          "projectileSize": 1,
+          "projectileSpeed": 150
+        }
+      ],
+      "allowedArmour": [],
+      "allowedWeapons": ["Bow"]
+    },
+    {
+      "name": "Gnoll Bandit",
+      "levelUpEXP": 100,
+      "levelUpEXPMultiplier": 1.5,
+      "iconPath": "",
+      "healthPerLevel": 10,
+      "manaPerLevel": 0,
+      "potentialSkills": [
+        {
+          "level": 5,
+          "skill": {
+            "name": "Flurry",
+            "desc": "Allows a second use of Rapid Strikes in quick succession with the first",
+            "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+            "newAttacks": [
+              {
+                "name": "Rapid Strikes",
+                "rangeBonus": 0,
+                "damageMultiplier": 1,
+                "manaCostMultiplier": 0,
+                "isMagical": false,
+                "cooldown": 0.75,
+                "duration": 0.25,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/crystal_spear_0",
+                "projectileSize": 0.75,
+                "projectileSpeed": 75
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        }
+      ],
+      "baseAttacks": [
+        {
+          "name": "Rapid Strikes",
+          "rangeBonus": 0,
+          "damageMultiplier": 1,
+          "manaCostMultiplier": 0,
+          "isMagical": false,
+          "cooldown": 0.75,
+          "duration": 0.25,
+          "projectileSpritePath": "Third-Party/Sprites/Effects/crystal_spear_0",
+          "projectileSize": 0.75,
+          "projectileSpeed": 75
+        }
+      ],
       "allowedArmour": [],
       "allowedWeapons": ["LightMelee"]
     }

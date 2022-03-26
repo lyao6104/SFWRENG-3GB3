@@ -9,11 +9,15 @@ public class EnemyScript : MonoBehaviour
 {
     public EnemyArchetypeSO archetype;
 
+	public float manaRegenTime = 1;
+
 	public Character characterData;
 	private GameControllerScript gc;
 	private Rigidbody2D rb;
 	private Transform targetTransform;
 	private List<AdventurerScript> potentialTargets = new List<AdventurerScript>();
+
+	private GameObject weaponObj;
 
 	private const float pathfindingInterval = 2.5f;
 	private const float targetingInterval = 2.5f;
@@ -67,8 +71,14 @@ public class EnemyScript : MonoBehaviour
 		name = characterData.name;
 		GetComponent<SpriteRenderer>().sprite = characterData.bodySprite;
 
+		if (characterData.weapon.sprite != null)
+		{
+			SpawnGraphic(characterData.weapon.sprite);
+		}
+
 		InvokeRepeating(nameof(FindTarget), 0, targetingInterval);
 		InvokeRepeating(nameof(FindPath), 0, pathfindingInterval);
+		InvokeRepeating(nameof(RegenMana), 0, manaRegenTime);
 
 		gc.OnEnemySpawn();
 	}
@@ -103,7 +113,7 @@ public class EnemyScript : MonoBehaviour
 		// Each point of resistance decreases damage by 0.5, with a minimum damage of 1 regardless.
 		// Total damage taken is rounded up.
 		int damageTaken = Mathf.Clamp(Mathf.CeilToInt(baseDamage - resistance * 0.5f), 1, baseDamage);
-		characterData.health = Mathf.Clamp(characterData.health - damageTaken, 0, characterData.maxHealth);
+		characterData.health = Mathf.Clamp(characterData.health - damageTaken, 0, characterData.GetCharacterMaxHealth());
 
 		if (characterData.health <= 0)
 		{
@@ -138,9 +148,14 @@ public class EnemyScript : MonoBehaviour
 		return Mathf.RoundToInt(threat);
 	}
 
+	private void RegenMana()
+	{
+		characterData.mana = Mathf.Min(characterData.GetCharacterMaxMana(), characterData.mana + 1);
+	}
+
 	private static int CompareAdventurerThreat(AdventurerScript x, AdventurerScript y)
 	{
-		return x.threat.CompareTo(y.threat);
+		return -x.threat.CompareTo(y.threat);
 	}
 
 	private void FindTarget()
@@ -256,6 +271,24 @@ public class EnemyScript : MonoBehaviour
 		}
 	}
 
+	private void SpawnGraphic(Sprite sprite)
+	{
+		if (weaponObj == null)
+		{
+			weaponObj = new GameObject(name + "'s Graphic");
+			weaponObj.transform.SetParent(transform, false);
+		}
+		SpriteRenderer spr = weaponObj.GetComponent<SpriteRenderer>();
+		if (spr == null)
+		{
+			spr = weaponObj.AddComponent<SpriteRenderer>();
+			spr.sortingOrder = 1;
+			spr.sortingLayerName = "Units";
+		}
+
+		spr.sprite = sprite;
+	}
+
 	private void Attack()
 	{
 		//if (isAttacking)
@@ -296,6 +329,7 @@ public class EnemyScript : MonoBehaviour
 			GameObject newProjectile = Instantiate(gc.projectilePrefab, transform.position, Quaternion.identity);
 			newProjectile.GetComponent<ProjectileScript>()
 				.Init(target.transform, transform, damage, isMagical, isMelee, potentialAttack);
+			newProjectile.layer = LayerMask.NameToLayer("Ignore Raycast");
 
 			nextAttackTime = characterData.combatClass.attacks[i].SignalAttack();
 			//isAttacking = false;

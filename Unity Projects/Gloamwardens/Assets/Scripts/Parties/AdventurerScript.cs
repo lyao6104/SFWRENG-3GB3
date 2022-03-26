@@ -13,7 +13,8 @@ public class AdventurerScript : MonoBehaviour
 
 	private PartyScript party;
 	private AdventurerScript[] partyMembers = new AdventurerScript[3];
-	private TargetingCriteria targetingCriterion = TargetingCriteria.MostThreat;
+	[SerializeField]
+	private TargetingCriteria targetingCriterion = TargetingCriteria.Closest;
 
 	// 0 -> Leggings, 1 -> Chestpiece, 2 -> Weapon, 3 -> Hair
 	private GameObject[] graphicsObjects = new GameObject[4];
@@ -59,6 +60,11 @@ public class AdventurerScript : MonoBehaviour
 		}
 	}
 
+	public TargetingCriteria GetTargetPriority()
+	{
+		return targetingCriterion;
+	}
+
 	public void PrioritizeTarget(TargetingCriteria criterion)
 	{
 		targetingCriterion = criterion;
@@ -96,16 +102,16 @@ public class AdventurerScript : MonoBehaviour
 				float distanceB = Vector2.Distance(transform.position, b.transform.position);
 				return distanceA.CompareTo(distanceB);				
 			case TargetingCriteria.MostHealthy:
-				float ratioA = a.characterData.health / a.characterData.maxHealth;
-				float ratioB = b.characterData.health / b.characterData.maxHealth;
-				return ratioA.CompareTo(ratioB);
-			case TargetingCriteria.LeastHealthy:
-				ratioA = a.characterData.health / a.characterData.maxHealth;
-				ratioB = b.characterData.health / b.characterData.maxHealth;
+				float ratioA = a.characterData.health / a.characterData.GetCharacterMaxHealth();
+				float ratioB = b.characterData.health / b.characterData.GetCharacterMaxHealth();
 				return -ratioA.CompareTo(ratioB);
+			case TargetingCriteria.LeastHealthy:
+				ratioA = a.characterData.health / a.characterData.GetCharacterMaxHealth();
+				ratioB = b.characterData.health / b.characterData.GetCharacterMaxHealth();
+				return ratioA.CompareTo(ratioB);
 			// Default criterion is MostThreat
 			default:
-				return a.GetThreat().CompareTo(b.GetThreat());
+				return -a.GetThreat().CompareTo(b.GetThreat());
 		}
 	}
 
@@ -164,7 +170,7 @@ public class AdventurerScript : MonoBehaviour
 		}
 
 		float distanceFromTarget = ((Vector2)targetTransform.position - rb.position).magnitude;
-		if (characterData.weapon.baseRange > 1e-6 && distanceFromTarget < characterData.weapon.baseRange - 1)
+		if (targetTransform.gameObject != party.gameObject && characterData.weapon.baseRange > 1e-6 && distanceFromTarget < characterData.weapon.baseRange - 1)
 		{
 			return;
 		}
@@ -206,9 +212,27 @@ public class AdventurerScript : MonoBehaviour
 		{
 			this
 		};
-		potentials.Sort((a, b) => (a.characterData.health / a.characterData.maxHealth)
-			.CompareTo(b.characterData.health / b.characterData.maxHealth));
+		//for (int i = 0; i < partyMembers.Length; i++)
+		//{
+		//	Debug.Log(partyMembers[i].characterData.name);
+		//	potentials.Add(partyMembers[i]);
+		//}
+		//foreach (AdventurerScript script in potentials)
+		//{
+		//	Debug.Log(script.characterData.name);
+		//}
+		potentials.Sort(CompareAdventurerHealth);
+		//Debug.Log(potentials[0].characterData.name);
 		return potentials[0].transform;
+	}
+
+	private int CompareAdventurerHealth(AdventurerScript a, AdventurerScript b)
+	{
+		float ratioA = a.characterData.health / a.characterData.GetCharacterMaxHealth();
+		float ratioB = b.characterData.health / b.characterData.GetCharacterMaxHealth();
+		int val = ratioA.CompareTo(ratioB);
+		//Debug.LogFormat("{3}: {0}, {4}:{1}, V: {2}", ratioA, ratioB, val, a.characterData.name, b.characterData.name);
+		return val;
 	}
 
 	private void Attack()
@@ -220,7 +244,7 @@ public class AdventurerScript : MonoBehaviour
 		//isAttacking = true;
 
 		EnemyScript target = targetTransform.GetComponent<EnemyScript>();
-		if (target == null || Time.time < nextAttackTime)
+		if (Time.time < nextAttackTime)
 		{
 			//isAttacking = false;
 			return;
@@ -230,7 +254,19 @@ public class AdventurerScript : MonoBehaviour
 		{
 			Attack potentialAttack = characterData.combatClass.attacks[i];
 			bool isHealing = potentialAttack.damageMultiplier < 0;
+			if (!isHealing && target == null)
+			{
+				continue;
+			}
 			Transform atkTarget = isHealing ? GetHealingTarget() : targetTransform;
+			if (isHealing)
+			{
+				AdventurerScript targetAdv = atkTarget.GetComponent<AdventurerScript>();
+				if (targetAdv != null && targetAdv.characterData.health >= targetAdv.characterData.GetCharacterMaxHealth())
+				{
+					continue;
+				}
+			}
 
 			bool inRange = characterData.weapon.baseRange + potentialAttack.rangeBonus >=
 				Vector2.Distance(transform.position, atkTarget.position);
@@ -253,9 +289,17 @@ public class AdventurerScript : MonoBehaviour
 			// Threat generated is damage, plus 2 times damage if isTaunting
 			threat += damage * (characterData.weapon.isTaunting ? 3 : 1);
 
-			GameObject newProjectile = Instantiate(gc.projectilePrefab, transform.position, Quaternion.identity);
-			newProjectile.GetComponent<ProjectileScript>()
-				.Init(atkTarget, transform, damage, isMagical, isMelee, potentialAttack);
+			if (isHealing)
+			{
+				atkTarget.GetComponent<AdventurerScript>().BeHealed(Mathf.Abs(damage));
+			}
+			else
+			{
+				GameObject newProjectile = Instantiate(gc.projectilePrefab, transform.position, Quaternion.identity);
+				newProjectile.GetComponent<ProjectileScript>()
+					.Init(atkTarget, transform, damage, isMagical, isMelee, potentialAttack);
+				newProjectile.layer = LayerMask.NameToLayer("Ignore Raycast");
+			}
 
 			nextAttackTime = characterData.combatClass.attacks[i].SignalAttack();
 			//isAttacking = false;
@@ -284,7 +328,7 @@ public class AdventurerScript : MonoBehaviour
 
 	public void BeHealed(int amount)
 	{
-		characterData.health = Mathf.Min(characterData.maxHealth, characterData.health + amount);
+		characterData.health = Mathf.Min(characterData.GetCharacterMaxHealth(), characterData.health + amount);
 	}
 
 	private void RegenHealth()
@@ -294,7 +338,7 @@ public class AdventurerScript : MonoBehaviour
 
 	private void RegenMana()
 	{
-		characterData.mana = Mathf.Min(characterData.maxMana, characterData.mana + 1);
+		characterData.mana = Mathf.Min(characterData.GetCharacterMaxMana(), characterData.mana + 1);
 	}
 
 	private void DecayThreat()
@@ -341,7 +385,7 @@ public class AdventurerScript : MonoBehaviour
 		// Each point of resistance decreases damage by 0.5, with a minimum damage of 1 regardless.
 		// Total damage taken is rounded up.
 		int damageTaken = Mathf.Clamp(Mathf.CeilToInt(baseDamage - resistance * 0.5f), 1, baseDamage);
-		characterData.health = Mathf.Clamp(characterData.health - damageTaken, 0, characterData.maxHealth);
+		characterData.health = Mathf.Clamp(characterData.health - damageTaken, 0, characterData.GetCharacterMaxHealth());
 
 		if (characterData.health <= 0)
 		{
@@ -357,7 +401,7 @@ public class AdventurerScript : MonoBehaviour
 	public void Deploy(PartyScript party, Character character)
 	{
 		this.party = party;
-		partyMembers = this.party.GetPartyMembers(this);
+		StartCoroutine(GetPartyMembers());
 
 		characterData = character;
 		name = characterData.name;
@@ -381,5 +425,17 @@ public class AdventurerScript : MonoBehaviour
 		InvokeRepeating(nameof(RegenHealth), 0, healthRegenTime);
 		InvokeRepeating(nameof(RegenMana), 0, manaRegenTime);
 		InvokeRepeating(nameof(DecayThreat), 0, threatDecayInterval);
+	}
+
+	public void Retreat()
+	{
+		party.Retreat();
+	}
+
+	private IEnumerator GetPartyMembers()
+	{
+		yield return new WaitForEndOfFrame();
+
+		partyMembers = party.GetPartyMembers(this);
 	}
 }

@@ -1,7 +1,7 @@
 {
   "classes": [
     {
-      "name": "Test Class",
+      "name": "Guardian",
       "levelUpEXP": 100,
       "levelUpEXPMultiplier": 1.5,
       "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
@@ -11,31 +11,435 @@
         {
           "level": 1,
           "skill": {
-            "name": "Test Skill",
-            "desc": "A skill for testing.",
+            "name": "Stellar Shield",
+            "desc": "The Guardian's shield becomes imbued with the power of stars.",
+            "iconPath": "Third-Party/Sprites/Icons/condensation_shield",
+            "newAttacks": [],
+            "healthBonus": 10,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 4,
+            "magicResistanceBonus": 6
+          }
+        },
+        {
+          "level": 1,
+          "skill": {
+            "name": "Stellar Reserves",
+            "desc": "The stars bestow more of the power unto this Guardian, bolstering their mana reserves.",
+            "iconPath": "Third-Party/Sprites/Icons/condensation_shield",
+            "newAttacks": [],
+            "healthBonus": 0,
+            "manaBonus": 50,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 2,
+          "skill": {
+            "name": "Physical Training",
+            "desc": "This adventurer's experience on the field has made them more resilient to harm.",
             "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
             "newAttacks": [],
-            "healthBonus": 100,
+            "healthBonus": 25,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 3,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 3,
+          "skill": {
+            "name": "Skyspear",
+            "desc": "The Guardian may launch a crystalline spear to pierce the hearts of the wicked.",
+            "iconPath": "Third-Party/Sprites/Icons/throw_icicle",
+            "newAttacks": [
+              {
+                "name": "Skyspear",
+                "rangeBonus": 5,
+                "damageMultiplier": 2.5,
+                "manaCostMultiplier": 1,
+                "isMagical": true,
+                "cooldown": 5,
+                "duration": 1.5,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/icicle_0",
+                "projectileSize": 1,
+                "projectileSpeed": 75
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 4,
+          "skill": {
+            "name": "Shield Bash",
+            "desc": "Shields can be used offensively as well as defensively. Guardians may also imbue their shields with magic when charging enemies.",
+            "iconPath": "Third-Party/Sprites/Icons/throw_icicle",
+            "newAttacks": [
+              {
+                "name": "Shield Bash",
+                "rangeBonus": 0,
+                "damageMultiplier": 0.5,
+                "manaCostMultiplier": 0.25,
+                "isMagical": true,
+                "cooldown": 5,
+                "duration": 0.1,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/shield_bash",
+                "projectileSize": 1,
+                "projectileSpeed": 50
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 5,
+          "skill": {
+            "name": "Dual Skyspear",
+            "desc": "The stars favour this Guardian, allowing them to conjure skyspears more often.",
+            "iconPath": "Third-Party/Sprites/Icons/throw_icicle",
+            "newAttacks": [
+              {
+                "name": "Skyspear",
+                "rangeBonus": 5,
+                "damageMultiplier": 2.5,
+                "manaCostMultiplier": 1,
+                "isMagical": true,
+                "cooldown": 5,
+                "duration": 1.5,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/icicle_0",
+                "projectileSize": 1,
+                "projectileSpeed": 75
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 20,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        }
+      ],
+      "baseAttacks": [
+        {
+          "name": "Sword Strike",
+          "rangeBonus": 0,
+          "damageMultiplier": 1,
+          "manaCostMultiplier": 0,
+          "isMagical": false,
+          "cooldown": 2.5,
+          "duration": 0.1,
+          "projectileSpritePath": "Third-Party/Sprites/Effects/crystal_spear_0",
+          "projectileSize": 1,
+          "projectileSpeed": 50
+        }
+      ],
+      "allowedArmour": ["HeavyArmour"],
+      "allowedWeapons": ["SwordAndShield"]
+    },
+    {
+      "name": "Life Mage",
+      "levelUpEXP": 100,
+      "levelUpEXPMultiplier": 1.5,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "healthPerLevel": 3,
+      "manaPerLevel": 5,
+      "potentialSkills": [
+        {
+          "level": 1,
+          "skill": {
+            "name": "Dual Windbite",
+            "desc": "The Life Mage furthers their skill of wind magic, allowing for more frequent use of Windbite.",
+            "iconPath": "Third-Party/Sprites/Icons/airstrike",
+            "newAttacks": [
+              {
+                "name": "Windbite",
+                "rangeBonus": 0,
+                "damageMultiplier": 0.5,
+                "manaCostMultiplier": 0.5,
+                "isMagical": true,
+                "cooldown": 1.25,
+                "duration": 0.75,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/crystal_spear_0",
+                "projectileSize": 0.75,
+                "projectileSpeed": 100
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 1,
+          "skill": {
+            "name": "Blessing of Life",
+            "desc": "This Life Mage has acquired the favour of the elementals, bolstering their mana reserves and fortitude.",
+            "iconPath": "Third-Party/Sprites/Icons/staff07",
+            "newAttacks": [],
+            "healthBonus": 0,
+            "manaBonus": 50,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 3
+          }
+        },
+        {
+          "level": 2,
+          "skill": {
+            "name": "Mental Training",
+            "desc": "This adventurer's experience on the field has strengthened them against magical assault.",
+            "iconPath": "Third-Party/Sprites/Icons/swiftness",
+            "newAttacks": [],
+            "healthBonus": 10,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 3
+          }
+        },
+        {
+          "level": 3,
+          "skill": {
+            "name": "Rapid Mending",
+            "desc": "Having access to a weaker, yet less tiring healing spell may end up being the difference between life and death.",
+            "iconPath": "Third-Party/Sprites/Icons/staff07",
+            "newAttacks": [
+              {
+                "name": "Rapid Mending",
+                "rangeBonus": -5,
+                "damageMultiplier": -0.5,
+                "manaCostMultiplier": 0.75,
+                "isMagical": true,
+                "cooldown": 3,
+                "duration": 1,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/bolt06",
+                "projectileSize": 1,
+                "projectileSpeed": 50
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 4,
+          "skill": {
+            "name": "Resilience",
+            "desc": "Although Life Mages are tasked with saving others, they cannot do so if they themselves fall.",
+            "iconPath": "Third-Party/Sprites/Icons/ozocubus_armour",
+            "newAttacks": [],
+            "healthBonus": 25,
+            "manaBonus": 25,
+            "physicalResistanceBonus": 1,
+            "magicResistanceBonus": 2
+          }
+        },
+        {
+          "level": 5,
+          "skill": {
+            "name": "Cyclone",
+            "desc": "Mastery over air allows this Life Mage to conjure devastating cyclones.",
+            "iconPath": "Third-Party/Sprites/Icons/airstrike",
+            "newAttacks": [
+              {
+                "name": "Cyclone",
+                "rangeBonus": 0,
+                "damageMultiplier": 2.5,
+                "manaCostMultiplier": 2,
+                "isMagical": true,
+                "cooldown": 7.5,
+                "duration": 1.5,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/bolt03",
+                "projectileSize": 1,
+                "projectileSpeed": 100
+              }
+            ],
+            "healthBonus": 0,
             "manaBonus": 0,
             "physicalResistanceBonus": 0,
             "magicResistanceBonus": 0
           }
         }
       ],
-      "baseAttack": {
-        "name": "Attack",
-        "rangeBonus": 0,
-        "damageMultiplier": 1,
-        "manaCostMultiplier": 1,
-        "isMagical": false,
-        "cooldown": 2.5,
-        "duration": 0.1,
-        "projectileSpritePath": "Third-Party/Sprites/Icons/unarmed_combat",
-        "projectileSize": 1,
-        "projectileSpeed": 1
-      },
+      "baseAttacks": [
+        {
+          "name": "Mending",
+          "rangeBonus": 0,
+          "damageMultiplier": -1,
+          "manaCostMultiplier": 1.25,
+          "isMagical": true,
+          "cooldown": 5,
+          "duration": 1,
+          "projectileSpritePath": "Third-Party/Sprites/Effects/bolt06",
+          "projectileSize": 1,
+          "projectileSpeed": 50
+        },
+        {
+          "name": "Windbite",
+          "rangeBonus": 0,
+          "damageMultiplier": 0.5,
+          "manaCostMultiplier": 0.5,
+          "isMagical": true,
+          "cooldown": 1.25,
+          "duration": 0.75,
+          "projectileSpritePath": "Third-Party/Sprites/Effects/crystal_spear_0",
+          "projectileSize": 0.75,
+          "projectileSpeed": 100
+        }
+      ],
       "allowedArmour": ["LightArmour"],
-      "allowedWeapons": ["LightStaff", "DarkStaff"]
+      "allowedWeapons": ["LightStaff"]
+    },
+    {
+      "name": "Ranger",
+      "levelUpEXP": 100,
+      "levelUpEXPMultiplier": 1.5,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "healthPerLevel": 5,
+      "manaPerLevel": 0,
+      "potentialSkills": [
+        {
+          "level": 1,
+          "skill": {
+            "name": "Swift Steps",
+            "desc": "The Ranger becomes more adept at avoiding attacks.",
+            "iconPath": "Third-Party/Sprites/Icons/swiftness",
+            "newAttacks": [],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 3,
+            "magicResistanceBonus": 3
+          }
+        },
+        {
+          "level": 1,
+          "skill": {
+            "name": "Padded Armour",
+            "desc": "Padded armour provides some more protection against enemy blows.",
+            "iconPath": "Third-Party/Sprites/Icons/banded_mail1",
+            "newAttacks": [],
+            "healthBonus": 15,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 2,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 2,
+          "skill": {
+            "name": "Concealed Dagger",
+            "desc": "A discrete dagger hidden away can prove useful in dealing with enemies who stray too close.",
+            "iconPath": "Third-Party/Sprites/Icons/dagger",
+            "newAttacks": [
+              {
+                "name": "Concealed Strike",
+                "rangeBonus": -28.5,
+                "damageMultiplier": 2,
+                "manaCostMultiplier": 1,
+                "isMagical": true,
+                "cooldown": 1.5,
+                "duration": 0.5,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/crystal_spear_0",
+                "projectileSize": 1,
+                "projectileSpeed": 75
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 20,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 2,
+          "skill": {
+            "name": "Physical Training",
+            "desc": "This adventurer's experience on the field has made them more resilient to harm.",
+            "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+            "newAttacks": [],
+            "healthBonus": 25,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 3,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 3,
+          "skill": {
+            "name": "Venom Arrow",
+            "desc": "Arrows tipped with venom for use against particularly troublesome enemies.",
+            "iconPath": "Third-Party/Sprites/Icons/venom_bolt",
+            "newAttacks": [
+              {
+                "name": "Venom Arrow",
+                "rangeBonus": 0,
+                "damageMultiplier": 2.5,
+                "manaCostMultiplier": 1,
+                "isMagical": false,
+                "cooldown": 5,
+                "duration": 0.5,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/poison_arrow_0",
+                "projectileSize": 1,
+                "projectileSpeed": 150
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        },
+        {
+          "level": 5,
+          "skill": {
+            "name": "Aimed Shot",
+            "desc": "A well aimed shot to exploit weak points in enemies.",
+            "iconPath": "Third-Party/Sprites/Icons/detect_creatures",
+            "newAttacks": [
+              {
+                "name": "Aimed Shot",
+                "rangeBonus": 0,
+                "damageMultiplier": 2.5,
+                "manaCostMultiplier": 1,
+                "isMagical": false,
+                "cooldown": 5,
+                "duration": 0.5,
+                "projectileSpritePath": "Third-Party/Sprites/Effects/arrow0",
+                "projectileSize": 1,
+                "projectileSpeed": 150
+              }
+            ],
+            "healthBonus": 0,
+            "manaBonus": 0,
+            "physicalResistanceBonus": 0,
+            "magicResistanceBonus": 0
+          }
+        }
+      ],
+      "baseAttacks": [
+        {
+          "name": "Rapid Shot",
+          "rangeBonus": 0,
+          "damageMultiplier": 1,
+          "manaCostMultiplier": 0,
+          "isMagical": false,
+          "cooldown": 0.75,
+          "duration": 0.5,
+          "projectileSpritePath": "Third-Party/Sprites/Effects/arrow0",
+          "projectileSize": 1,
+          "projectileSpeed": 150
+        }
+      ],
+      "allowedArmour": ["LightArmour"],
+      "allowedWeapons": ["Bow"]
     }
   ]
 }

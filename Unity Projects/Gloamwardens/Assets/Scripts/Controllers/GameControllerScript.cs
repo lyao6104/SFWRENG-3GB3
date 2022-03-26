@@ -21,7 +21,7 @@ public class GameControllerScript : MonoBehaviour
 	public List<Character> availableAdventurers;
 	private const int advPoolCapacity = 2 * PartyScript.partySize;
 
-	public GameObject mainUI, gameOverPanel;
+	public GameObject mainUI, gameOverPanel, victoryPanel;
 	public GameObject partyCreationPanel, partyViewPanel;
 	public GameObject skillPanel;
 
@@ -50,6 +50,12 @@ public class GameControllerScript : MonoBehaviour
 		enemyCount = Mathf.Max(0, enemyCount - 1);
 		if (!IsInCombat())
 		{
+			if (NoWavesLeft())
+			{
+				mainUI.SetActive(false);
+				victoryPanel.SetActive(true);
+			}
+
 			nextWaveButton.interactable = true;
 			GameObject.FindGameObjectWithTag("AudioController").GetComponent<AudioControllerScript>().PlayNextTrack();
 			for (int i = availableAdventurers.Count; i < advPoolCapacity; i++)
@@ -57,6 +63,18 @@ public class GameControllerScript : MonoBehaviour
 				availableAdventurers.Add(CharUtil.GetPlayableCharacter());
 			}
 		}
+	}
+
+	private bool NoWavesLeft()
+	{
+		foreach (EnemySpawnScript enemySpawn in enemySpawns)
+		{
+			if (enemySpawn.waves.Count > 0)
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void NextWave()
@@ -123,7 +141,7 @@ public class GameControllerScript : MonoBehaviour
 			{
 				if (members[j].characterData == character)
 				{
-					return members[i];
+					return members[j];
 				}
 			}
 		}

@@ -74,6 +74,8 @@ public class PartyCreationScript : MonoBehaviour
 		}
 
 		GameObject partyGO = new GameObject("Adventurer Party");
+		// Just some arbitrarily far position so it doesn't interfere with deployment.
+		partyGO.transform.position = new Vector3(1000, 1000);
 		PartyScript newParty = partyGO.AddComponent<PartyScript>();
 		for (int i = 0; i < selectedAdventurers.Count; i++)
 		{

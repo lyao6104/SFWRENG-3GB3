@@ -56,7 +56,7 @@ public class ProjectileScript : MonoBehaviour
 			return;
 		}
 
-		if (target == null)
+		if (target == null || attacker == null)
 		{
 			Destroy(gameObject);
 		}

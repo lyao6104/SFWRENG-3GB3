@@ -10,31 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b940186c3f5422a43b55b6e1e04b3dde, type: 3}
-  m_Name: Gremlin
+  m_Name: Gnoll Archer
   m_EditorClassIdentifier: 
-  race: Gremlin
-  className: Gremlin
+  race: Gnoll
+  className: Gnoll Archer
   level: 1
-  killEXPPerLevel: 20
+  killEXPPerLevel: 25
   weapon:
-    name: Gremlin Claws
-    description: The claws of a gremlin.
+    name: Gnoll Bow
+    description: 
     tags:
     - Weapon
-    - Light Melee
-    - Monster
+    - Bow
     slot: 0
     rarity: 0
     icon: {fileID: 0}
-    sprite: {fileID: 0}
-    type: 6
-    baseDamage: 10
+    sprite: {fileID: 21300000, guid: 4d344da632133d344a2b8e3600b0ebb2, type: 3}
+    type: 2
+    baseDamage: 5
     baseSpeed: 1
-    baseRange: 1
+    baseRange: 7.5
     manaCost: 0
     isMagical: 0
     isTaunting: 0
   lootChance: 0.05
   minRarityPerLevel: 0.1
   maxRarityPerLevel: 0.2
-  speed: 40
+  speed: 30

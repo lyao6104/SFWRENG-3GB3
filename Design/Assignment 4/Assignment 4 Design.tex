@@ -47,17 +47,29 @@ rather than being able to explicitly tell them to attack a specific enemy, they 
 in \textit{Bloons TD 6} works. However, each unit will have progression and equipment that is somewhat similar to squad-based tactics games
 like the newer \textit{XCOM} games, or role-playing games like \textit{Dungeons and Dragons}.
 
+Specifically, the skill system takes inspiration from the skill tree of \textit{XCOM 2: War of the Chosen}'s faction units,
+where the player may pick any of the potential skills for that unit's current rank, provided they have enough skill points.
+However, there is one obvious difference: in \textit{Gloamwardens}, each skill costs exactly one skill point, to keep things simple.
+Additionally, the class system is inspired by MMORPGs such as \textit{Final Fantasy XIV}, where each class fits into a particular role;
+some are specialized for dealing damage, others are mainly healers, and others ``tanks'', who soak up damage from enemies in order
+to protect other party members. The difference here, however, is that players are not strictly forced to have exactly two
+damage dealers, one healer, and one tank; players may experiment with all kinds of party compositions, though it is
+likely that the traditional MMO composition will still be the optimal one.
+
 \section{Gameplay}
 
-The game will have multiple (as in, at least two) pre-made levels that are accessible at any time, with the first level also serving as a tutorial of sorts.
+The game is meant to have multiple pre-made levels that are accessible at any time, with the first level also serving as a tutorial of sorts.
+However, time constraints resulted in only one level making it to the assignment submission.
 Gameplay in each level will follow the basic tower defence formula: there are one or more paths, waves of enemies appear at one end and travel to the other,
 and if an enemy reaches the end, the player loses lives. However, instead of placing towers, the player will instead assemble parties of adventurers
 and place them along the path. Adventurers in each party will autonomously fight enemies and support allies that are nearby. Players cannot directly
 control adventurers, but they may adjust their targeting priorities in-between waves. The player is also able to signal parties to retreat, at which point
-they are removed from the game area, and may be summoned again after the current wave ends.
+they are removed from the game area, and may be summoned again. The player may choose to immediately re-deploy the retreating party,
+but since their health does not replenish, this may prove lethal to one or more adventurers.
 
-At the start of a level, the player hires adventurers, which have attributes such as base health, base mana, name, race, etc. Adventurers are
-automatically assigned a class (and, by extension, a role of either tank, damage dealer, or support), which determines what skills they can acquire,
+At the start of a level, forms parties from adventurers that are selected from a pool.
+Each adventurer has their own attributes such as base health, base mana, name, race, etc. Adventurers are
+automatically assigned a class (and, by extension, a role of either tank, damage dealer, or support/healer), which determines what skills they can acquire,
 what equipment they can use, and so on. If an adventurer dies from reaching zero health, they are permanently gone, which contrasts heavily with how
 towers work in traditional tower defence games (since usually, they are either invincible or easily replaceable). As such, if an adventurer is in danger,
 the player must weigh the benefits of having their party retreat, allowing enemies to pass to the player's next line of defence, or keeping them
@@ -70,9 +82,8 @@ dealers, a support, and a tank, they may have any amount of each role), and thes
 somewhere on the path during a level. All enemies that encounter the party will stop to fight the adventurers, and will continue to do so until the party
 retreats, or either the enemies or the party members are defeated.
 
-In each level, the player must defeat a certain number of enemy waves to complete it, at which point they may either exit the level,
-or continue to play. If they continue, then new waves will that get progressively stronger will continue to appear until the player either loses
-or quits. Because the player must spend time between waves to improve their adventurers, and possibly adjust party compositions, each wave
+In each level, the player must defeat a certain number of enemy waves to complete it, at which point they may exit the level.
+Because the player must spend time between waves to improve their adventurers, and possibly adjust party compositions, each wave
 must be manually launched by the player.
 
 Combat works as follows: characters pick a target nearby that satisfies their targeting conditions (e.g. if an adventurer is set to always target
@@ -92,26 +103,39 @@ The former should have more energetic music, while the latter should have more r
 
 The premise of the game is that the player leads a company of adventurers whose goal is to safeguard the nighttime from monsters and other such villains
 (hence the name \textit{Gloamwardens}). They do so by venturing into caves and other such places to prevent the monsters within from leaving
-to attack the populace. This small bit of story should be conveyed to the player as part of an introduction, but there doesn't need to be
+to attack the populace. This small bit of story should be conveyed to the player as part of the instructions, but there doesn't need to be
 much of a narrative during gameplay. The adventurers, each of which has their own name, class, appearance, etc. also add an element of emergent
 storytelling, which can be further supported by tracking various statistics. For example, the player might feel impacted if they lose one
-of their adventurers, who had killed dozens or even hundreds of enemies, who they've had since the beginning of a level, and invested heavily in.
+of their adventurers, who had killed dozens or even hundreds of enemies, or who they've had since the beginning of a level and invested heavily in.
 
 \section{Player Experience}
 
 The player is rather detached from the combat of the game, so that will always be a kind of dampener on the intensity of the player experience.
 Nevertheless, this game should take a lesson from \textit{Kingdom Rush} and aim to have an engaging combat phase where the player is not bored.
 Even though the player is very limited in how they can interact with their adventurer parties during the combat phase, they should still feel invested
-in how well their parties are faring.
+in how well their parties are faring. The music of the game can also help here: during combat, the music player will play more energetic tracks,
+while out of combat, the music will be slower, and perhaps more mysterious.
 
 Gameplay should also feel strategic. The player should be able to formulate a plan (e.g. what kind of adventurers to put in a party, where to place the party,
 how should they advance their skills, etc.) and carry it out. There should be moments of suspense, especially during close fights, and moments of triumph,
 possibly after said fights, or after defeating very powerful waves of enemies. Losing adventurers, especially ones the player was invested in,
-should evoke a sense of loss.
+should evoke a sense of loss. The need for planning is supported by the choice to not replenish the pool of available adventurers until \textit{after}
+combat has concluded. This way, the player cannot just send party after party of adventurers at a wave of enemies, and must make do with the
+parties they already have deployed (in addition to a limited number of possible reinforcements in the pool). Conveniently, this
+also indirectly limits how quickly the player can grow their forces.
 
-% \section{Changes from Original}
+Another part of strategic gameplay is the idea that different classes of adventurers should synergize with each other. Normally, adventurers
+will regenerate health very slowly over time by themselves, which encourages players to add healers to their parties to regenerate health faster.
+These healers (as well as specialized damage-dealing classes) are also rather fragile, which in turn encourages the player to protect them
+by using adventurers that can taunt and draw the attention of enemies.
 
+\section{Changes from Original}
 
+Unfortunately, some planned features did not make it into the implementation. The largest feature that was removed would be the ability
+to acquire new equipment and re-equip adventurers. In the implementation, equipment still exists, but there is no way to gain new equipment
+or replace what adventurers already have, due to time constraints.
+
+Likewise, the ``endless mode'' with procedurally generated waves was also scrapped due to time constraints.
 
 \section{Works Used}
 

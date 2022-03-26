@@ -37,7 +37,7 @@ namespace CharacterLib
 			if (desiredRace == null)
 			{
 				race = RaceUtil.GetPlayableRace();
-				Debug.Log(race.name);
+				//Debug.Log(race.name);
 			}
 			else
 			{
@@ -67,8 +67,8 @@ namespace CharacterLib
 
 			maxHealth += combatClass.healthIncPerLevel;
 			maxMana += combatClass.manaIncPerLevel;
-			health = maxHealth;
-			mana = maxMana;
+			health = GetCharacterMaxHealth();
+			mana = GetCharacterMaxMana();
 		}
 
 		public virtual GameObject SpawnGameObject()
@@ -86,6 +86,26 @@ namespace CharacterLib
 			return weapon.baseRange;
 		}
 
+		public int GetCharacterMaxHealth()
+		{
+			int skillHealthBonus = 0;
+			foreach (CombatSkill skill in combatClass.unlockedSkills)
+			{
+				skillHealthBonus += skill.healthBonus;
+			}
+			return maxHealth + skillHealthBonus;
+		}
+
+		public int GetCharacterMaxMana()
+		{
+			int skillManaBonus = 0;
+			foreach (CombatSkill skill in combatClass.unlockedSkills)
+			{
+				skillManaBonus += skill.manaBonus;
+			}
+			return maxMana + skillManaBonus;
+		}
+
 		// Currently just returns weapon damage.
 		public int GetCharacterDamage()
 		{
@@ -95,13 +115,13 @@ namespace CharacterLib
 		public int GetCharacterPhysicalResistance()
 		{
 			int skillResistance = combatClass.unlockedSkills.Aggregate(0, (a, b) => a + b.physRBonus);
-			return basePhysResistance + torso.physicalArmour + legs.physicalArmour + skillResistance;
+			return basePhysResistance + (torso == null ? 0 : torso.physicalArmour) + (legs == null ? 0 : legs.physicalArmour) + skillResistance;
 		}
 
 		public int GetCharacterMagicalResistance()
 		{
 			int skillResistance = combatClass.unlockedSkills.Aggregate(0, (a, b) => a + b.magiRBonus);
-			return baseMagiResistance + torso.magicalArmour + legs.magicalArmour + skillResistance;
+			return baseMagiResistance + (torso == null ? 0 : torso.magicalArmour) + (legs == null ? 0 : legs.magicalArmour) + skillResistance;
 		}
 	}
 
@@ -128,7 +148,7 @@ namespace CharacterLib
 		public void GainEXP(int amount)
 		{
 			curEXP += amount;
-			if (curEXP > levelUpEXP)
+			if (curEXP >= levelUpEXP)
 			{
 				LevelUp();
 			}

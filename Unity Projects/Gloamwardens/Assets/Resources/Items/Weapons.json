@@ -1,9 +1,9 @@
 {
   "weapons": [
     {
-      "name": "Test Light Staff",
-      "description": "A staff of light for testing.",
-      "tags": ["Weapon", "Light Staff", "Testing"],
+      "name": "Life Mage's Staff",
+      "description": "A staff of light used by Life Mages.",
+      "tags": ["Weapon", "Light Staff"],
       "slot": "Weapon",
       "rarity": 0,
       "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
@@ -14,6 +14,38 @@
       "baseRange": 30,
       "manaCost": 10,
       "isMagical": true,
+      "isTaunting": false
+    },
+    {
+      "name": "Guardian's Arms",
+      "description": "A Guardian's standard sword and shield",
+      "tags": ["Weapon", "Sword and Shield"],
+      "slot": "Weapon",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/katana1",
+      "spritePath": "Third-Party/Sprites/Weapons/guardian_weapon",
+      "type": "SwordAndShield",
+      "baseDamage": 10,
+      "baseSpeed": 1,
+      "baseRange": 1,
+      "manaCost": 25,
+      "isMagical": false,
+      "isTaunting": true
+    },
+    {
+      "name": "Ranger's Bow",
+      "description": "A Ranger's standard greatbow",
+      "tags": ["Weapon", "Bow"],
+      "slot": "Weapon",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Weapons/great_bow",
+      "type": "Bow",
+      "baseDamage": 5,
+      "baseSpeed": 1,
+      "baseRange": 30,
+      "manaCost": 0,
+      "isMagical": false,
       "isTaunting": false
     }
   ]

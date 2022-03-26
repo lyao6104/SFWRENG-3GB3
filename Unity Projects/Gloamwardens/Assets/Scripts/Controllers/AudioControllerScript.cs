@@ -59,7 +59,7 @@ public class AudioControllerScript : MonoBehaviour
 	{
 		AudioClip clip;
 		float fadeDuration = 3;
-		if (gc.IsInCombat())
+		if (gc != null && gc.IsInCombat())
 		{
 			int i;
 			do

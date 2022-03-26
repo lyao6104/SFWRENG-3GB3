@@ -1,33 +1,102 @@
 {
-    "armour": [
-      {
-        "name": "Test Light Coat",
-        "description": "A coat of light for testing.",
-        "tags": ["Armour", "Light Armour", "Torso", "Testing"],
-        "slot": "Torso",
-        "rarity": 0,
-        "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
-        "spritePath": "Third-Party/Sprites/Armour/coat_black",
-        "type": "Light",
-        "healthBonus": 0,
-        "manaBonus": 10,
-        "physicalArmour": 2,
-        "magicalArmour": 10
-      },
-      {
-        "name": "Test Light Pants",
-        "description": "A pair of pants of light for testing.",
-        "tags": ["Armour", "Light Armour", "Legs", "Testing"],
-        "slot": "Legs",
-        "rarity": 0,
-        "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
-        "spritePath": "Third-Party/Sprites/Armour/leg_armor01",
-        "type": "Light",
-        "healthBonus": 0,
-        "manaBonus": 10,
-        "physicalArmour": 2,
-        "magicalArmour": 10
-      }
-    ]
-  }
-  
+  "armour": [
+    {
+      "name": "Gray Mage Coat",
+      "description": "A gray coat worn by mages.",
+      "tags": ["Armour", "Light Armour", "Torso"],
+      "slot": "Torso",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Armour/coat_black",
+      "type": "Light",
+      "healthBonus": 0,
+      "manaBonus": 15,
+      "physicalArmour": 2,
+      "magicalArmour": 5
+    },
+    {
+      "name": "Life Mage's Green Robes",
+      "description": "Green robes worn by Life Mages.",
+      "tags": ["Armour", "Light Armour", "Torso"],
+      "slot": "Torso",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Armour/robe_green_gold",
+      "type": "Light",
+      "healthBonus": 0,
+      "manaBonus": 15,
+      "physicalArmour": 2,
+      "magicalArmour": 5
+    },
+    {
+      "name": "Life Mage's White Robes",
+      "description": "White robes worn by Life Mages.",
+      "tags": ["Armour", "Light Armour", "Torso"],
+      "slot": "Torso",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Armour/robe_white_green",
+      "type": "Light",
+      "healthBonus": 0,
+      "manaBonus": 15,
+      "physicalArmour": 2,
+      "magicalArmour": 5
+    },
+    {
+      "name": "Guardian's Blue Armour",
+      "description": "A Guardian's scale armour, coloured blue.",
+      "tags": ["Armour", "Heavy Armour", "Torso"],
+      "slot": "Torso",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Armour/dragon_armor_blue",
+      "type": "Heavy",
+      "healthBonus": 5,
+      "manaBonus": 0,
+      "physicalArmour": 5,
+      "magicalArmour": 5
+    },
+    {
+      "name": "Guardian's Light Blue Armour",
+      "description": "A Guardian's scale armour, coloured light blue.",
+      "tags": ["Armour", "Heavy Armour", "Torso"],
+      "slot": "Torso",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Armour/dragon_armor_cyan",
+      "type": "Heavy",
+      "healthBonus": 5,
+      "manaBonus": 0,
+      "physicalArmour": 5,
+      "magicalArmour": 5
+    },
+    {
+      "name": "Plate Leggings",
+      "description": "Generic plate leggings.",
+      "tags": ["Armour", "Heavy Armour", "Legs"],
+      "slot": "Legs",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Armour/leg_armor02",
+      "type": "Heavy",
+      "healthBonus": 0,
+      "manaBonus": 0,
+      "physicalArmour": 3,
+      "magicalArmour": 3
+    },
+    {
+      "name": "Magician's Leggings",
+      "description": "A pair of pants commonly worn by magic users.",
+      "tags": ["Armour", "Light Armour", "Legs"],
+      "slot": "Legs",
+      "rarity": 0,
+      "iconPath": "Third-Party/Sprites/Icons/unarmed_combat",
+      "spritePath": "Third-Party/Sprites/Armour/leg_armor01",
+      "type": "Light",
+      "healthBonus": 0,
+      "manaBonus": 10,
+      "physicalArmour": 1,
+      "magicalArmour": 3
+    }
+  ]
+}

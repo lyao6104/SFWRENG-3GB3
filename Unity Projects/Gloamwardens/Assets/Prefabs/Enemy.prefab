@@ -77,6 +77,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   archetype: {fileID: 0}
+  manaRegenTime: 1
+  characterData:
+    name: 
+    health: 0
+    maxHealth: 0
+    mana: 0
+    maxMana: 0
+    race:
+      name: 
+      bodySprites: []
+      baseHealth: 0
+      baseMana: 0
+      basePhysResistance: 0
+      baseMagiResistance: 0
+    bodySprite: {fileID: 0}
+    hairSprite: {fileID: 0}
+    basePhysResistance: 0
+    baseMagiResistance: 0
+    combatClass:
+      name: 
+      level: 1
+      curEXP: 0
+      levelUpEXP: 100
+      levelUpEXPMultiplier: 1.5
+      icon: {fileID: 0}
+      healthIncPerLevel: 5
+      manaIncPerLevel: 5
+      freeSkillPoints: 0
+      unlockedSkills: []
+      attacks: []
+      allowedArmour: 
+      allowedWeapons: 
+    weapon:
+      name: 
+      description: 
+      tags: []
+      slot: 0
+      rarity: 0
+      icon: {fileID: 0}
+      sprite: {fileID: 0}
+      type: 0
+      baseDamage: 0
+      baseSpeed: 0
+      baseRange: 0
+      manaCost: 0
+      isMagical: 0
+      isTaunting: 0
+    torso:
+      name: 
+      description: 
+      tags: []
+      slot: 0
+      rarity: 0
+      icon: {fileID: 0}
+      sprite: {fileID: 0}
+      type: 0
+      healthBonus: 0
+      manaBonus: 0
+      physicalArmour: 0
+      magicalArmour: 0
+    legs:
+      name: 
+      description: 
+      tags: []
+      slot: 0
+      rarity: 0
+      icon: {fileID: 0}
+      sprite: {fileID: 0}
+      type: 0
+      healthBonus: 0
+      manaBonus: 0
+      physicalArmour: 0
+      magicalArmour: 0
 --- !u!212 &-7764051620886625151
 SpriteRenderer:
   m_ObjectHideFlags: 0
