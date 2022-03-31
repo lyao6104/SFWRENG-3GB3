@@ -1,0 +1,189 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\definecolor{linkcolour}{RGB}{0, 149, 255}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkcolour
+}
+
+\begin{document}
+
+\title{\textit{Awakening}}
+\author{Luna Y.}
+\date{
+    SFWRENG 3GB3 -- Assignment 5\\[0.25cm]
+    \today
+}
+\maketitle
+
+\tableofcontents
+
+\section{Basic Information}
+
+As specified in the assignment outline, this game will be built off of Unity's RPG Creator Kit.
+The game itself will be one where the player must gather materials to craft items and use them to defeat enemies.
+Different enemies will have different types, and different types of items (weapons, armour, etc.) will be more or
+less effective against different types of enemies (somewhat similar to type advantages from the \textit{Pokemon} games).
+
+As for challenges, there will resource accumulation challenges, stealth challenges, as well as survival and reduction of enemy forces.
+There are also elements of spatial awareness challenges. The specific details of these challenges will be explained in the
+later sections of this document.
+
+\section{Gameplay}
+
+In the level, there are enemies scattered across the map that have predetermined movement patterns. Enemies, as well
+as the player, each have their own health values, which can be decreased by being attacked. Players kill enemies
+by reducing their health to zero, and players die when \textit{their} health reaches zero. The goal is to defeat
+all the enemies, while keeping the player avatar alive. If enemies have set movement patterns,
+this also adds an element of a pattern recognition challenge.
+
+However, combat is not just as simple as running up to an enemy and hitting it until it dies. Each enemy has a particular
+``type'': armoured, magical, unarmoured, and incorporeal, and the player's weapons can either be blunt, piercing, or magical.
+Strengths and weaknesses are given in the following table, where ``Weak'' indicates an armour type's weakness to an attack,
+``Resist'' indicates that an armour type is highly resistant against an attack, ``Invulnerable'' indicates that attacks of
+that type will do zero damage to the corresponding armour type, and ``Normal'' indicates no modifier:
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        & Armoured & Magical & Unarmoured & Incorporeal\\
+        \hline
+        Blunt & Resist & Normal & Normal & Invulnerable\\
+        Piercing & Weak & Normal & Normal & Invulnerable\\
+        Magical & Normal & Resist & Normal & Weak\\
+        \hline
+    \end{tabular}
+\end{center}
+The player starts out with no weapon equipped, so they must first gather resources to craft one. Players store all
+crafted weapons in their inventory, and different weapons can be equipped or unequipped at will.
+While the player has no weapon, they are unable to attack enemies, which means they must remain in stealth,
+and avoid combat with enemies to gather resources for their first weapon.
+
+While crafting, the player needs to be able to keep track of their surroundings, and also quickly stop crafting
+and react to any changes if necessary. As such, the crafting itself will be rather simple, and should be interruptible
+as well. Crafting different weapons will require different amounts of various types of materials, which must be gathered
+by the player during gameplay. Gathering materials is as simple as moving next to a material node on the map and interacting
+with it to gather the material. Both crafting and gathering items should require a certain amount of time,
+which encourages the player to not perform either action while there are enemies nearby that might interrupt them.
+Just as an example, crafting in this game will be somewhat similar to how crafting works in \textit{Starbound};
+each crafting recipe requires a list of materials, and different items will take different amounts of time to craft.
+This directly contributes to the resource accumulation and spatial awareness challenges. Resource accumulation is fairly
+straightforward, and spatial awareness comes from the player needing to track where they have been, where things are
+in the map, what enemies are nearby, and so on.
+
+For simplicity, all combat will be performed using ranged attacks. Each weapon has a damage and type (see table above)
+associated with it, and the exact damage done to an enemy is further modified by any damage bonuses or penalties
+(which are determined by type matchings). For simplicity, the player is not weak or resistant to any particular type of damage.
+Additionally, rather than free targeting of attacks, the mechanic of ``tab targeting'', commonly seen in MMORPGs like \textit{Final Fantasy XIV},
+will be borrowed, so that players will select an explicit target for their attacks (however, the method of selecting targets doesn't
+necessarily have to be the Tab key, and mouse clicks can also be used to target enemies). While an enemy is targeted,
+the player should also be able to see a visualization of that enemy's aggression radius (outside of which the enemy will not attack the player),
+which should help them plan their routes for gathering materials, and finding safe places to craft.
+
+\section{Aesthetics}
+
+The story/lore of the game is that the player is some kind of adventurer/hero who has awoken in an underground setting (either a cave system
+or castle) filled with enemies, and they must escape after defeating all the enemies near them. This lore will be presented
+either as an introduction pop-up or in the instructions.
+
+The visual and musical styles should match the story. That is, the visuals should be darker and more ``gloomy'',
+while the music used should be more instrumental, with a darker/more sombre feeling, as opposed to bright and cheerful.
+
+\pagebreak
+
+\section{Player Experience}
+
+The initial section of gameplay should evoke a sense of suspense and ``sneakiness'', as the player must navigate the map
+and gather resources without being spotted by enemies. The player should feel rather weak at this point, as they have no
+method of fighting back against enemies. Since the player will likely feel frustrated if they make a mistake and are permanently
+followed by an enemy that spotted them, the player should be able to escape enemies by running some distance away (this distance
+should be greater than the distance at which enemies notice the player).
+
+During combat, the mood should be more energetic, which can be supported by a change in music (just like in \textit{Gloamwardens}).
+The player should have access to basic information about enemies (e.g. health, armour type, attack strength) to allow
+for informed decision-making and a more strategic experience (for example, the player could plan to clear out an area
+of relatively weaker enemies in order to gain access to new resources, while also avoiding areas with stronger enemies).
+
+The player should feel a sense of progression throughout the level as they manage to create more powerful weapons.
+At the beginning, they should feel relatively weak, while by the end, they should feel powerful.
+
+% \section{Changes from Original}
+
+
+
+\section{Works Used}
+
+This project uses Unity's 2D RPG Creator Kit as a base. It can be found in the \href{https://assetstore.unity.com/packages/templates/tutorials/creator-kit-rpg-149309}{Unity Asset Store}.
+
+% \subsection{Concepts}
+
+% \subsection{Code}
+
+% Like Assignment 2, the game features many script assets originally made for \textit{Nightscape},
+% which is still not released publicly. This includes camera functionality, object selection, as well as
+% random name generation. Many of the names themselves include segments generated from
+% \href{https://www.fantasynamegenerators.com/}{Fantasy Name Generators}.
+% The appropriate behaviours were also modified to use Unity's new input system, using concepts learned
+% from \href{https://www.youtube.com/watch?v=PsAbHoB85hM}{this tutorial} as well as the Unity documentation.
+
+% This game also builds on \textit{The Starlight Rebellion}'s version of the audio player originally made
+% for \textit{Lightrunner}.
+
+% The game also uses the \href{https://arongranberg.com/astar/}{A* Pathfinding Project} as its pathfinding algorithm,
+% which uses the \href{https://unity3d.com/legal/as_terms}{Standard Unity Asset Store EULA}. Movement, attacking,
+% and some other AI-related behaviour was heavily adapted from another one of my old personal projects called \textit{War of the Vale},
+% which is also not publicly available.
+
+% \subsection{Art}
+
+% \textbf{\textit{Dungeon Crawl Stone Soup}}
+% \begin{itemize}
+%     \item The game uses main and supplementary tilesets from \textit{Dungeon Crawl Stone Soup}, hosted \href{https://opengameart.org/content/dungeon-crawl-32x32-tiles}{here}
+%         and \href{https://opengameart.org/content/dungeon-crawl-32x32-tiles-supplemental}{here}, respectively.
+%     \item These assets are in the public domain, under the \href{https://creativecommons.org/publicdomain/zero/1.0/}{CC0 1.0} license.
+% \end{itemize}
+
+% \subsection{Fonts}
+
+% \textbf{Alegreya SC}
+% \begin{itemize}
+%     \item Licensed under OFL
+%     \item Sourced from \href{https://fonts.google.com/specimen/Alegreya+SC}{Google Fonts}
+% \end{itemize}
+
+% \textbf{IM Fell Double Pica SC}
+% \begin{itemize}
+%     \item Licensed under OFL
+%     \item Sourced from \href{https://fonts.google.com/specimen/IM+Fell+Double+Pica+SC}{Google Fonts}
+% \end{itemize}
+
+% \subsection{Music}
+
+% Auroras of Saturn by MusicLFiles\\
+% Link: \url{https://filmmusic.io/song/6782-auroras-of-saturn}\\
+% License: \url{https://filmmusic.io/standard-license}
+
+% Dawn by Alexander Nakarada\\
+% Link: \url{https://filmmusic.io/song/4867-dawn}\\
+% License: \url{https://filmmusic.io/standard-license}
+
+% Horizon Flare by Alexander Nakarada\\
+% Link: \url{https://filmmusic.io/song/4837-horizon-flare}\\
+% License: \url{https://filmmusic.io/standard-license}
+
+% Dungeon Crawl Stone Soup assets, Szadi RPG Cave and Rogue Castle.
+
+\end{document}
